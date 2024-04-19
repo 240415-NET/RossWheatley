@@ -80,12 +80,12 @@ class Program
         else if (i >= 5 && i < 10)
         {
             Console.WriteLine("Oh, that's a pretty big family.");
-            return true;
+            return false;
         }
         else if (i >= 10 && i <= 100)
         {
             Console.WriteLine("Wow...");
-            return true;
+            return false;
         }
         else if (i > 100)
         {
