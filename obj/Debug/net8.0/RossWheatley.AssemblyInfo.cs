@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RossWheatley")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+626ea311e09f10098f690c18f31f8cc09ba3afc2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae8411205bd75253a7dbee97e21fc7fe38b5051f")]
 [assembly: System.Reflection.AssemblyProductAttribute("RossWheatley")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RossWheatley")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

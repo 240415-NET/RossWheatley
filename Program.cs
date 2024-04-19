@@ -49,10 +49,10 @@ class Program
 
             Console.WriteLine("Would you like to answer this question again? (Y/N)");
             userInput = Console.ReadLine();
-        } while (RepeatLoop(userInput));
+        } while (RepeatProgram(userInput));
     }
 
-    private static bool RepeatLoop(string userInput)
+    private static bool RepeatProgram(string userInput)
     {
         if (userInput == "Y")
         {
@@ -64,6 +64,7 @@ class Program
         }
     }
 
+    // Handles user's household size, comments on the household size, and rejects unacceptable input
     private static bool HandleHouseholdSize(int i)
     {
         if (i < 1)
