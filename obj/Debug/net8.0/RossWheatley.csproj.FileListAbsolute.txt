@@ -1,0 +1,15 @@
+C:\Tools\repos\RossWheatley\bin\Debug\net8.0\RossWheatley.exe
+C:\Tools\repos\RossWheatley\bin\Debug\net8.0\RossWheatley.deps.json
+C:\Tools\repos\RossWheatley\bin\Debug\net8.0\RossWheatley.runtimeconfig.json
+C:\Tools\repos\RossWheatley\bin\Debug\net8.0\RossWheatley.dll
+C:\Tools\repos\RossWheatley\bin\Debug\net8.0\RossWheatley.pdb
+C:\Tools\repos\RossWheatley\obj\Debug\net8.0\RossWheatley.GeneratedMSBuildEditorConfig.editorconfig
+C:\Tools\repos\RossWheatley\obj\Debug\net8.0\RossWheatley.AssemblyInfoInputs.cache
+C:\Tools\repos\RossWheatley\obj\Debug\net8.0\RossWheatley.AssemblyInfo.cs
+C:\Tools\repos\RossWheatley\obj\Debug\net8.0\RossWheatley.csproj.CoreCompileInputs.cache
+C:\Tools\repos\RossWheatley\obj\Debug\net8.0\RossWheatley.sourcelink.json
+C:\Tools\repos\RossWheatley\obj\Debug\net8.0\RossWheatley.dll
+C:\Tools\repos\RossWheatley\obj\Debug\net8.0\refint\RossWheatley.dll
+C:\Tools\repos\RossWheatley\obj\Debug\net8.0\RossWheatley.pdb
+C:\Tools\repos\RossWheatley\obj\Debug\net8.0\RossWheatley.genruntimeconfig.cache
+C:\Tools\repos\RossWheatley\obj\Debug\net8.0\ref\RossWheatley.dll
