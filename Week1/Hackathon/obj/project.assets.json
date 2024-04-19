@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Tools\\repos\\RossWheatley\\RossWheatley.csproj",
-      "projectName": "RossWheatley",
-      "projectPath": "C:\\Tools\\repos\\RossWheatley\\RossWheatley.csproj",
+      "projectUniqueName": "C:\\Tools\\repos\\RossWheatley\\Week1\\Hackathon\\Hackathon.csproj",
+      "projectName": "Hackathon",
+      "projectPath": "C:\\Tools\\repos\\RossWheatley\\Week1\\Hackathon\\Hackathon.csproj",
       "packagesPath": "C:\\Users\\A170420\\.nuget\\packages\\",
-      "outputPath": "C:\\Tools\\repos\\RossWheatley\\obj\\",
+      "outputPath": "C:\\Tools\\repos\\RossWheatley\\Week1\\Hackathon\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
