@@ -1,0 +1,15 @@
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\obj\Debug\net8.0\Hackathon2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\obj\Debug\net8.0\Hackathon2.AssemblyInfoInputs.cache
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\obj\Debug\net8.0\Hackathon2.AssemblyInfo.cs
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\obj\Debug\net8.0\Hackathon2.csproj.CoreCompileInputs.cache
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\obj\Debug\net8.0\Hackathon2.sourcelink.json
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\bin\Debug\net8.0\Hackathon2.exe
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\bin\Debug\net8.0\Hackathon2.deps.json
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\bin\Debug\net8.0\Hackathon2.runtimeconfig.json
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\bin\Debug\net8.0\Hackathon2.dll
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\bin\Debug\net8.0\Hackathon2.pdb
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\obj\Debug\net8.0\Hackathon2.dll
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\obj\Debug\net8.0\refint\Hackathon2.dll
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\obj\Debug\net8.0\Hackathon2.pdb
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\obj\Debug\net8.0\Hackathon2.genruntimeconfig.cache
+C:\Tools\repos\RossWheatley\Week2\Hackathon2\obj\Debug\net8.0\ref\Hackathon2.dll

@@ -1,15 +1,24 @@
-﻿namespace Grocery;
+﻿using System.Runtime.InteropServices;
 
-class Program
+namespace Grocery;
+
+public class Program
 {
     static void Main(string[] args)
     {
+        Console.Clear();
         Console.WriteLine("Enter your grocery list (separated with commas): ");
         string userInput = Console.ReadLine();
         string[] groceryItems = userInput.Split(",");
         int[] itemsInCart = new int[groceryItems.Count()];
         bool repeat;
         int itemNumber = 0;
+
+        CommercialAuto thisPolicy;
+
+        if(thisPolicy.Drivers[0].Driver.Address.City == "Westfield") {
+            Console.WriteLine("This is the best possible customer. They are handsome.");
+        }
 
         do
         {
@@ -31,7 +40,7 @@ class Program
             }
             else if (userInput.Contains("rm"))
             {
-                int numbers = Convert.ToInt32(new String(userInput.Where(Char.IsDigit).ToArray()));
+                int numbers = ExtractNumbers(userInput);
 
                 if (numbers <= groceryItems.Count() && itemsInCart[numbers - 1] - 1 >= 0)
                 {
@@ -62,5 +71,10 @@ class Program
                 repeat = true;
             }
         } while (repeat);
+    }
+
+    static int ExtractNumbers(string input)
+    {
+        return Convert.ToInt32(new String(input.Where(Char.IsDigit).ToArray()));
     }
 }
