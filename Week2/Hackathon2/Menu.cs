@@ -66,13 +66,13 @@ public class Menu
             }
             else
             {
-                DefaultMessages.DisplayInvalidInputMessage();
+                MessageHandler.DisplayMessage();
                 return false;
             }
         }
         catch (Exception e)
         {
-            DefaultMessages.DisplayInvalidInputMessage();
+            MessageHandler.DisplayMessage();
             return false;
         }
     }
