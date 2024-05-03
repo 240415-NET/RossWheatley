@@ -1,9 +1,10 @@
-﻿namespace TBG;
+﻿using TBG.Presentation;
 
+namespace TBG;
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World.");
+        new Menu().StartMenu();
     }
 }
