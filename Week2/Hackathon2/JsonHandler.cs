@@ -5,7 +5,7 @@ namespace Hackathon2;
 
 public static class JsonHandler
 {
-    private static string? filePath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
+    private static string filePath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
 
     private static string GetFilePath(string path)
     {
@@ -15,11 +15,11 @@ public static class JsonHandler
         return newFilePath;
     }
 
-    public static Draft LoadDraftFromJson()
+    public static List<DraftChoice> LoadDraftDataFromJson()
     {
         string filePath = GetFilePath(@"\draft.json");
-        string json = File.ReadAllText(filePath);
-        Draft draft = JsonSerializer.Deserialize<Draft>(json);
-        return draft;
+        string? json = File.ReadAllText(filePath);
+        List<DraftChoice> draftData = JsonSerializer.Deserialize<List<DraftChoice>>(json);
+        return draftData;
     }
 }

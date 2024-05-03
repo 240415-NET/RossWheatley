@@ -2,12 +2,12 @@ namespace Hackathon2;
 
 public class DraftChoice
 {
-    private int round = 0;
-    private int pick = 0;
-    private string team = "Empty";
-    private string school = "Empty";
-    private string player = "Empty";
-    private string position = "Empty";
+    private int round;
+    private int pick;
+    private string? team;
+    private string? school;
+    private string? player;
+    private string? position;
 
     // Default constructor with default values
     public DraftChoice()
@@ -16,14 +16,14 @@ public class DraftChoice
     }
 
     // Overloaded constructor with all values passed as args
-    public DraftChoice(int round, int pick, string team, string player, string position, string school)
+    public DraftChoice(int round, int pick, string? team, string? player, string? position, string? school)
     {
         this.round = round;
         this.pick = pick;
-        this.team = team;
-        this.player = player;
-        this.position = position;
-        this.school = school;
+        Team = team;
+        School = school;
+        Player = player;
+        Position = position;
     }
 
     public int Round
@@ -38,37 +38,30 @@ public class DraftChoice
         set { pick = value; }
     }
 
-    public string Team
+    public string? Team
     {
         get { return team; }
         set { team = value; }
     }
 
-    public string Player
+    public string? School
+    {
+        get { return school; }
+        set { school = value; }
+    }
+    public string? Player
     {
         get { return player; }
         set { player = value; }
     }
-    public string Position
+    public string? Position
     {
         get { return position; }
         set { position = value; }
     }
 
-    public string School
-    {
-        get { return school; }
-        set { school = value; }
-    }
-
     public override string ToString()
     {
-        return $"R{Round}P{Pick}. {Team} selects {Player}, {Position}, out of {School}";
+        return $"R{Round.ToString().PadLeft(2, '0')}P{Pick.ToString().PadLeft(2, '0')}. {Team} selects {Player}, {Position}, out of {School}";
     }
-} // End of DraftChoice Classtwit
-
-public class Draft : List<DraftChoice>
-{
-    // Hello, World!
 }
-

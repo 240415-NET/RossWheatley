@@ -2,32 +2,28 @@ namespace Hackathon2;
 
 public class Menu
 {
-    // Declares list to hold all draft picks
     Draft draft = new();
-    // Declares a starting value for draft pick and round
-    int round = 1;
-    int pick = 0;
     string? userInput;
 
     public void MainMenu()
     {
-        // Array of main menu options
-        string[] mainMenuOptions = { "View existing entries.", "Add new entry.", "Delete an entry.", "Exit" };
         do
         {
-            Console.Clear();
-            Console.WriteLine("Please make a selection: \n");
-            PrintMenuOptions(mainMenuOptions);
+            PrintMenuOptions(MessageHandler.MenuArrays(), true);
             userInput = Console.ReadLine();
         }
-        while (!MenuInputValid(userInput, mainMenuOptions));
+        while (!ValidMenuInput(userInput, MessageHandler.MenuArrays())); // Loop if input not valid
 
-        NavigateMainMenu(Convert.ToInt16(userInput));
+        NavigateMainMenu(Convert.ToInt16(userInput)); // Go to menu select
 
     }
-
-    void PrintMenuOptions(string[] options)
+    void PrintMenuOptions(string[] options, bool clear = false)
     {
+        if (clear)
+        {
+            Console.Clear();
+        }
+        Console.WriteLine("Please make a selection: \n");
         for (int i = 0; i < options.Count(); i++)
         {
             Console.WriteLine($"{i + 1}. {options[i]}");
@@ -39,24 +35,25 @@ public class Menu
         switch (input)
         {
             case 1:
-                // Navigate to view list
                 DisplayEntries();
                 break;
             case 2:
-                // Navigate to Add
                 AddEntry();
                 break;
             case 3:
-                // Navigate to Delete
+                DeleteLast();
+                break;
+            case 4:
+                // Save
+                MessageHandler.DisplayMessage();
                 break;
             default:
-                // Exit
                 Environment.Exit(0);
                 break;
         }
     }
 
-    bool MenuInputValid(string input, string[] options)
+    bool ValidMenuInput(string? input, string[] options)
     {
         try
         {
@@ -66,99 +63,84 @@ public class Menu
             }
             else
             {
-                MessageHandler.DisplayMessage();
+                MessageHandler.DisplayMessage("invalid");
                 return false;
             }
         }
         catch (Exception e)
         {
-            MessageHandler.DisplayMessage();
+            MessageHandler.DisplayMessage("invalid");
             return false;
-        }
-    }
-
-    string AddEntryDynamicMenu(int index, string[] details)
-    {
-        switch (index)
-        {
-            case 0:
-                return $"Which team is making selection #{pick} of round {round}?";
-            case 1:
-                return $"Which player does {details[index]} select?";
-            case 2:
-                return $"What position does {details[index]} play?";
-            case 3:
-                return $"What college did {details[index]} play for?";
-            default:
-                MessageHandler.DisplayMessage();
-                return null;
         }
     }
 
     void AddEntry()
     {
-        IterateCounters();
+        Console.Clear();
+        draft.Counters();
 
-        string[] details = new string[4];
-        string[] addOptions = { "1. Add another player.", "2. Return to main menu." };
+        string?[] details = new string[4];
 
         for (int i = 0; i < details.Count(); i++)
         {
-            Console.Clear();
-            AddEntryDynamicMenu(i, details);
+            Console.WriteLine(MessageHandler.DisplayAddEntryDynamicMenu(i, details, draft));
             details[i] = Console.ReadLine();
         }
 
-        DraftChoice choice = new(round, pick, details[0], details[1], details[2], details[3]);
-        draft.Add(choice);
+        draft.Selections.Add(new DraftChoice(draft.Round, draft.NextPick, details[0], details[1], details[2], details[3]));
+        Console.Clear();
+        MessageHandler.DisplayMessage("added", false);
+
         do
         {
-            Console.Clear();
-            Console.WriteLine("Player added.");
-            PrintMenuOptions(addOptions);
+            PrintMenuOptions(MessageHandler.MenuArrays("addentry"));
             userInput = Console.ReadLine();
+            Console.Clear();
         }
-        while (!MenuInputValid(userInput, addOptions));
+        while (!ValidMenuInput(userInput, MessageHandler.MenuArrays("addentry")));
 
         if (Convert.ToInt16(userInput) == 1)
         {
-            AddEntry();
+            AddEntry(); // Repeat Add Entry
         }
         else
         {
-            MainMenu();
+            MainMenu(); // Return to Main Menu
         }
     }
 
+    // Iterates and writes all entries to the console
     void DisplayEntries()
     {
         Console.Clear();
-        if (draft.Count() > 0)
+        if (draft.Selections.Count() > 0)
         {
-            foreach (DraftChoice choice in draft)
+            foreach (DraftChoice choice in draft.Selections)
             {
                 Console.WriteLine(choice);
             }
+            MessageHandler.DisplayMessage("waitonly"); // Prompt user before clearing console and returning to main
         }
         else
         {
-            Console.WriteLine("There are currently no entries.");
+            MessageHandler.DisplayMessage("noentries");
         }
-        Console.WriteLine("(Press any key to return to main menu.)");
-        Console.ReadKey();
         MainMenu();
     }
 
-    void IterateCounters()
+    void DeleteLast()
     {
-        if (pick > 32)
+        if (draft.Selections.Count > 0)
         {
-            round++;
-            pick = 1;
+            Console.Clear();
+            draft.Selections.RemoveAt(draft.Selections.Count - 1);
+            draft.Counters(false); // Decrement next pick/round
+            MessageHandler.DisplayMessage("delete");
         }
         else
         {
-            pick++;
+            MessageHandler.DisplayMessage("noentries");
         }
+        MainMenu();
     }
 }
