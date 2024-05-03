@@ -1,8 +1,8 @@
-namespace Project1Proposal.Data;
+namespace TBG.Data;
 
 public class UserStorage
 {
-    public static void StoreUser(Player player)
+    public static void StoreUser(User user)
     {
         // Create file if one doesn't exist
 
