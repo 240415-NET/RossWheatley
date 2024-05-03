@@ -1,11 +1,11 @@
 # Ross's Project #1 Proposal
 
-## Application Name: 
+## Application Name: Generic Turn-Based Game
 
-#### Description: 
+#### Description: A console game with no theme descriptors that tracks generic values and attributes until completion of a game, or the user wishes to quit.
 
 #### MVP Functionality: 
-1. Here
+1. 
 1. Here
 1. Here
 
