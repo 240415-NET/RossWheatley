@@ -4,10 +4,10 @@ public static class PresentationUtility
 {
     static Dictionary<string, string> messages = new Dictionary<string, string>()
         {
-            {"added","New user added."}, // Player Added
-            {"default","Something went wrong. Please try again."}, // Default Error Message
-            {"invalid","Invalid input."}, // Invalid Input
-            {"pressany","Press any key to go back and try again."} // Press Any Key
+            {"added","New user added."},
+            {"continue","Press any key to continue."},
+            {"default","Something went wrong. Please try again."},
+            {"invalid","Invalid input."}
         };
 
     public static void DisplayMessage(string input = "default", bool wait = true)
@@ -19,7 +19,7 @@ public static class PresentationUtility
 
         if (wait) // Await user confirmation to continue when wait is true
         {
-            Console.WriteLine(messages["pressany"]);
+            Console.WriteLine(messages["continue"]);
             Console.ReadKey();
         }
     }
