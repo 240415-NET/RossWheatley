@@ -2,6 +2,8 @@ namespace TBG.Presentation;
 
 public static class PresentationUtility
 {
+    readonly static int loadingDuration = 4;
+    readonly static int sleepTime = 200;
     static Dictionary<string, string> messages = new Dictionary<string, string>()
         {
             {"added","New user added."},
@@ -29,9 +31,20 @@ public static class PresentationUtility
         switch (menu.ToLower())
         {
             case "turn":
-            return new string[] {"End turn","Update attributes","Attempt task","Return to main menu"};
+                return new string[] { "End turn", "Update attributes", "Attempt task", "Return to main menu" };
             default:
                 return new string[] { "Create new user", "Login as existing user", "Exit" };
+        }
+    }
+
+    public static void ShowLoadingAnimation()
+    {
+        int iterations = loadingDuration * 2;
+
+        for (int i = 0; i < iterations; i++)
+        {
+            Console.Write(". ");
+            Thread.Sleep(sleepTime);
         }
     }
 

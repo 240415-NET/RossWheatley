@@ -1,6 +1,6 @@
 namespace TBG;
 
-public class GameModel
+public class Save
 {
     private Guid gameId;
     private GameObject playerObject;
