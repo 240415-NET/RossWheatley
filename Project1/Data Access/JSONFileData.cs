@@ -8,44 +8,57 @@ public class JSONFileData : IDataAccess
 {
     private readonly static string _filePath = "UsersFile.json";
 
-    public bool StoreUser(User user)
+    public void StoreUser(User user)
     {
-        if (FilePathExists() && !UserExists(user.UserName))
+        if (FilePathExists())
         {
-            // Store user appending to existing file
-            List<User> existingUserList = JsonSerializer.Deserialize<List<User>>(File.ReadAllText(_filePath));
-            existingUserList.Add(user);
-            File.WriteAllText(_filePath, JsonSerializer.Serialize(existingUserList));
-            return true;
+            Console.WriteLine("File path exists.");
+            if (!UserExists(user.UserName))
+            {
+                Console.WriteLine("Username does not exist");
+                // New user name
+                List<User> existingUsers = GetUserList();
+                existingUsers.Add(user);
+                SaveData(existingUsers);
+            }
+            else
+            {
+                // Username already exists
+            }
         }
-        else if (!UserExists(user.UserName))
+        else
         {
-            List<User> userList = new();
-            // Store user in new file
-            userList.Add(user);
-            File.WriteAllText(_filePath, JsonSerializer.Serialize(userList));
-            return true;
+            List<User> users = new();
+            users.Add(user);
+            SaveData(users);
         }
-        PresentationUtility.DisplayMessage();
-        return false;
+    }
+
+    void SaveData(List<User> users)
+    {
+        Debug.WriteLine("SaveData");
+        string json = JsonSerializer.Serialize(users);
+        File.WriteAllText(_filePath, json);
     }
 
     public bool UserExists(string userName)
     {
-        return FilePathExists() && GetUserList().Any(user => user.UserName == userName);
+        if (FilePathExists())
+        {
+            List<User> existingUsers = GetUserList();
+            bool noDuplicatesFound = existingUsers.Any(user => user.UserName == userName);
+            return noDuplicatesFound;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     List<User> GetUserList()
     {
-        try
-        {
-            return JsonSerializer.Deserialize<List<User>>(File.ReadAllText(_filePath));
-        }
-        catch (Exception e)
-        {
-            Debug.WriteLine(e.Message);
-        }
-        return new List<User>();
+        string json = File.ReadAllText(_filePath);
+        return JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
     }
 
     bool FilePathExists()

@@ -9,7 +9,8 @@ public static class PresentationUtility
             {"added","New user added."},
             {"continue","Press any key to continue."},
             {"default","Something went wrong. Please try again."},
-            {"invalid","Invalid input."}
+            {"duplicate","That username may already exist. Please try again."},
+            {"invalid","Invalid input."},
         };
 
     public static void DisplayMessage(string input = "default", bool wait = true)

@@ -9,21 +9,26 @@ public class Menu
     public void StartMenu()
     {
         bool validInput = false;
+        int userSelection = 0;
         do
         {
-            Console.Clear();
-            PresentationUtility.MenuArt();
-            PrintMenuArray(PresentationUtility.MenuArrays());
-            try
+            do
             {
-                validInput = MainMenuSelector(Convert.ToInt32(Console.ReadLine()));
-            }
-            catch
-            {
-                validInput = false;
-                PresentationUtility.DisplayMessage("invalid", true);
-            }
-        } while (!validInput);
+                Console.Clear();
+                PresentationUtility.MenuArt();
+                PrintMenuArray(PresentationUtility.MenuArrays());
+                try
+                {
+                    userSelection = Convert.ToInt32(Console.ReadLine());
+                    validInput = true;
+                }
+                catch
+                {
+                    validInput = false;
+                    PresentationUtility.DisplayMessage("invalid", true);
+                }
+            } while (!validInput); // iterates only if the user's input is *not* valid
+        } while (!MainMenuSelector(userSelection));
     }
 
     void PrintMenuArray(string[] options, bool clear = false)
@@ -41,14 +46,27 @@ public class Menu
 
     void CreateNewUser()
     {
-        JSONFileData jsonFileData = new();
-        User newUser = new();
+        IDataAccess dataAccess = new JSONFileData();
+        bool repeat = false;
         do
         {
-
+            repeat = true;
+            Console.Clear();
             Console.WriteLine("Please enter a user name: ");
-            newUser = new(Console.ReadLine() ?? "");
-        } while (!jsonFileData.StoreUser(newUser));
+            userInput = Console.ReadLine() ?? "";
+            if (!dataAccess.UserExists(userInput))
+            {
+                repeat = false;
+            }
+            else
+            {
+                PresentationUtility.DisplayMessage("duplicate", true);
+            }
+        } while (repeat); // Will prompt for user input again if user name already exists
+        User newUser = new(userInput);
+        dataAccess.StoreUser(newUser);
+        PresentationUtility.DisplayMessage("added", true);
+        StartMenu();
     }
 
     bool MainMenuSelector(int selection)
@@ -63,6 +81,7 @@ public class Menu
             case 3:
                 return true;
             default:
+                Console.WriteLine("2");
                 PresentationUtility.DisplayMessage("invalid", true);
                 return false;
         }
