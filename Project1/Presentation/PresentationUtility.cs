@@ -2,16 +2,9 @@ namespace TBG.Presentation;
 
 public static class PresentationUtility
 {
-<<<<<<< HEAD
-    private readonly static int loadingDuration = 4;
-    private readonly static int sleepTime = 200;
-    private static bool displayArt = true;
-
-=======
     readonly static int loadingDuration = 4;
     readonly static int sleepTime = 200;
     private static bool displayArt = true;
->>>>>>> 62e02c4a50f4067afbd47c8cf0d2075a273eb441
     static Dictionary<string, string> messages = new Dictionary<string, string>()
         {
             {"added","New user added."},
@@ -35,21 +28,24 @@ public static class PresentationUtility
         }
     }
 
-    public static string[] MenuArrays(string menu = "")
+    public static string[] MenuArrays(int menu = 0)
     {
-        switch (menu.ToLower())
+        switch (menu)
         {
-            case "turn":
-                return new string[] { "End turn", "Update attributes", "Attempt task", "Return to main menu" };
-            case "user":
+            case 1:
                 return new string[] { "Continue previous game.", "Create new game.", "Return to main menu." };
+            case 2:
+                return new string[] { "End turn", "Update attributes", "Attempt task", "Return to main menu" };
             default:
                 return new string[] { "Create new user", "Login as existing user", "Exit" };
         }
     }
 
-    public static void ShowLoadingAnimation()
+    public static void ShowLoadingAnimation(int load = 0, int sleep = 0)
     {
+        load = load == 0 ? loadingDuration : load;
+        sleep = sleep == 0 ? sleepTime : sleep;
+
         int iterations = loadingDuration * 2;
 
         for (int i = 0; i < iterations; i++)

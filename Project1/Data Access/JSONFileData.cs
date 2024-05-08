@@ -11,16 +11,20 @@ public class JSONFileData : IDataAccess
 
     public List<Save> GetSaveList()
     {
-        if (FilePathExists(_savesFile))
+        if (File.Exists(_savesFile))
         {
             string json = File.ReadAllText(_savesFile);
             return JsonSerializer.Deserialize<List<Save>>(json) ?? new List<Save>();
+        }
+        else
+        {
+            return new List<Save>();
         }
     }
 
     public void StoreUser(User user)
     {
-        if (FilePathExists(_usersFile))
+        if (File.Exists(_usersFile))
         {
             if (!UserExists(user.UserName))
             {
@@ -50,7 +54,7 @@ public class JSONFileData : IDataAccess
 
     public bool UserExists(string userName)
     {
-        if (FilePathExists(_usersFile))
+        if (File.Exists(_usersFile))
         {
             List<User> existingUsers = GetUserList();
             bool noDuplicatesFound = existingUsers.Any(user => user.UserName == userName);
@@ -66,10 +70,5 @@ public class JSONFileData : IDataAccess
     {
         string json = File.ReadAllText(_usersFile);
         return JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
-    }
-
-    bool FilePathExists(string filePath)
-    {
-        return File.Exists(filePath);
     }
 }
