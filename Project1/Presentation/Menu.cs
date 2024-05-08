@@ -4,6 +4,8 @@ namespace TBG.Presentation;
 
 public class Menu
 {
+    Session session = new();
+    IDataAccess dataAccess = new JSONFileData();
     string userInput = "";
 
     public void StartMenu()
@@ -31,7 +33,17 @@ public class Menu
         } while (!MainMenuSelector(userSelection));
     }
 
-    void PrintMenuArray(string[] options, bool clear = false)
+    void LoginExistingUser()
+    {
+
+    }
+
+    void PlayGame()
+    {
+
+    }
+
+GCNotificationStatus     void PrintMenuArray(string[] options, bool clear = false)
     {
         if (clear)
         {
@@ -46,7 +58,6 @@ public class Menu
 
     void CreateNewUser()
     {
-        IDataAccess dataAccess = new JSONFileData();
         bool repeat = false;
         do
         {
@@ -66,7 +77,15 @@ public class Menu
         User newUser = new(userInput);
         dataAccess.StoreUser(newUser);
         PresentationUtility.DisplayMessage("added", true);
-        StartMenu();
+        session.ActiveUser = newUser;
+
+        // "Log user in" and move to game menu
+        Console.WriteLine($"{session.ActiveUser.UserName} now logged in.");
+    }
+
+    void ExitApplication()
+    {
+        Environment.Exit(0);
     }
 
     bool MainMenuSelector(int selection)

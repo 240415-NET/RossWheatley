@@ -4,6 +4,7 @@ public static class PresentationUtility
 {
     readonly static int loadingDuration = 4;
     readonly static int sleepTime = 200;
+    private static bool displayArt = true;
     static Dictionary<string, string> messages = new Dictionary<string, string>()
         {
             {"added","New user added."},
@@ -51,8 +52,10 @@ public static class PresentationUtility
 
     public static void MenuArt()
     {
-        string[] lines = new string[]
+        if (displayArt)
         {
+            string[] lines = new string[]
+            {
         "**********************************************",
         "                                    ",
         " GGGGG    AAAAA   MMM     MMM  EEEEE",
@@ -61,30 +64,32 @@ public static class PresentationUtility
         "GG  GGGG AAAAAAA  MM   M   MM  EEEE ",
         "GG    GG AA   AA  MM       MM  EE   ",
         " GGGGGG  AA   AA  MM       MM  EEEEE",
-        };
-        for (int i = 0; i <= lines.Length; i++)
-        {
-            if (i == 0 || i == lines.Length)
+            };
+            for (int i = 0; i <= lines.Length; i++)
             {
-                Border();
+                if (i == 0 || i == lines.Length)
+                {
+                    Border();
+                }
+                else if (i + 1 == lines.Length)
+                {
+                    Console.WriteLine($"***  {lines[i]}  ***");
+                    Console.WriteLine($"***  {lines[1]}  ***");
+                }
+                else
+                {
+                    Console.WriteLine($"***  {lines[i]}  ***");
+                }
             }
-            else if (i + 1 == lines.Length)
-            {
-                Console.WriteLine($"***  {lines[i]}  ***");
-                Console.WriteLine($"***  {lines[1]}  ***");
-            }
-            else
-            {
-                Console.WriteLine($"***  {lines[i]}  ***");
-            }
-        }
 
-        void Border() // nested method
-        {
-            for (int i = 0; i < 2; i++)
+            void Border() // nested method
             {
-                Console.WriteLine(lines[0]);
+                for (int i = 0; i < 2; i++)
+                {
+                    Console.WriteLine(lines[0]);
+                }
             }
         }
+        displayArt = false;
     }
 }
