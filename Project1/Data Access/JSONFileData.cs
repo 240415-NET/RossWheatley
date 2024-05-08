@@ -6,11 +6,21 @@ namespace TBG.Data;
 
 public class JSONFileData : IDataAccess
 {
-    private readonly static string _filePath = "UsersFile.json";
+    private readonly static string _usersFile = "UsersFile.json";
+    private readonly static string _savesFile = "SavesFile.json";
+
+    public List<Save> GetSaveList()
+    {
+        if (FilePathExists(_savesFile))
+        {
+            string json = File.ReadAllText(_savesFile);
+            return JsonSerializer.Deserialize<List<Save>>(json) ?? new List<Save>();
+        }
+    }
 
     public void StoreUser(User user)
     {
-        if (FilePathExists())
+        if (FilePathExists(_usersFile))
         {
             Console.WriteLine("File path exists.");
             if (!UserExists(user.UserName))
@@ -19,7 +29,7 @@ public class JSONFileData : IDataAccess
                 // New user name
                 List<User> existingUsers = GetUserList();
                 existingUsers.Add(user);
-                SaveData(existingUsers);
+                SaveUserData(existingUsers);
             }
             else
             {
@@ -30,20 +40,20 @@ public class JSONFileData : IDataAccess
         {
             List<User> users = new();
             users.Add(user);
-            SaveData(users);
+            SaveUserData(users);
         }
     }
 
-    void SaveData(List<User> users)
+    void SaveUserData(List<User> users)
     {
         Debug.WriteLine("SaveData");
         string json = JsonSerializer.Serialize(users);
-        File.WriteAllText(_filePath, json);
+        File.WriteAllText(_usersFile, json);
     }
 
     public bool UserExists(string userName)
     {
-        if (FilePathExists())
+        if (FilePathExists(_usersFile))
         {
             List<User> existingUsers = GetUserList();
             bool noDuplicatesFound = existingUsers.Any(user => user.UserName == userName);
@@ -57,12 +67,12 @@ public class JSONFileData : IDataAccess
 
     List<User> GetUserList()
     {
-        string json = File.ReadAllText(_filePath);
+        string json = File.ReadAllText(_usersFile);
         return JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
     }
 
-    bool FilePathExists()
+    bool FilePathExists(string filePath)
     {
-        return File.Exists(_filePath);
+        return File.Exists(filePath);
     }
 }
