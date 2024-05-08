@@ -2,8 +2,13 @@ namespace TBG;
 
 public class Save
 {
-    private Guid gameId;
+    public Guid gameId { get; set; }
     private GameObject playerObject;
     private int turns;
     private int units;
+
+    public Save()
+    {
+        gameId = Guid.NewGuid();
+    }
 }

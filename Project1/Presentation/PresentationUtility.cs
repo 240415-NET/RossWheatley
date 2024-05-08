@@ -2,10 +2,16 @@ namespace TBG.Presentation;
 
 public static class PresentationUtility
 {
+<<<<<<< HEAD
     private readonly static int loadingDuration = 4;
     private readonly static int sleepTime = 200;
     private static bool displayArt = true;
 
+=======
+    readonly static int loadingDuration = 4;
+    readonly static int sleepTime = 200;
+    private static bool displayArt = true;
+>>>>>>> 62e02c4a50f4067afbd47c8cf0d2075a273eb441
     static Dictionary<string, string> messages = new Dictionary<string, string>()
         {
             {"added","New user added."},
@@ -94,5 +100,6 @@ public static class PresentationUtility
             }
             displayArt = false;
         }
+        displayArt = false;
     }
 }

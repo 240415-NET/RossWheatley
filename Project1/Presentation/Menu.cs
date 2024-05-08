@@ -4,13 +4,66 @@ namespace TBG.Presentation;
 
 public class Menu
 {
+<<<<<<< HEAD
     string userInput = ""; // variable to handle Console.ReadLine()
 
     #region -- Handlers --
+=======
+    Session session = new();
+    IDataAccess dataAccess = new JSONFileData();
+    string userInput = "";
+
+    public void StartMenu()
+    {
+        bool validInput = false;
+        int userSelection = 0;
+        do
+        {
+            do
+            {
+                Console.Clear();
+                PresentationUtility.MenuArt();
+                PrintMenuArray(PresentationUtility.MenuArrays());
+                try
+                {
+                    userSelection = Convert.ToInt32(Console.ReadLine());
+                    validInput = true;
+                }
+                catch
+                {
+                    validInput = false;
+                    PresentationUtility.DisplayMessage("invalid", true);
+                }
+            } while (!validInput); // iterates only if the user's input is *not* valid
+        } while (!MainMenuSelector(userSelection));
+    }
+
+    void LoginExistingUser()
+    {
+
+    }
+
+    void PlayGame()
+    {
+
+    }
+
+GCNotificationStatus     void PrintMenuArray(string[] options, bool clear = false)
+    {
+        if (clear)
+        {
+            Console.Clear();
+        }
+        Console.WriteLine("Please make a selection: \n");
+        for (int i = 0; i < options.Count(); i++)
+        {
+            Console.WriteLine($"{i + 1}. {options[i]}");
+        }
+    }
+>>>>>>> 62e02c4a50f4067afbd47c8cf0d2075a273eb441
 
     void CreateNewUser()
     {
-        IDataAccess dataAccess = new JSONFileData();
         bool repeat = false;
         do
         {
@@ -30,7 +83,19 @@ public class Menu
         User newUser = new(userInput);
         dataAccess.StoreUser(newUser);
         PresentationUtility.DisplayMessage("added", true);
+<<<<<<< HEAD
         MenuHandler(1);
+=======
+        session.ActiveUser = newUser;
+
+        // "Log user in" and move to game menu
+        Console.WriteLine($"{session.ActiveUser.UserName} now logged in.");
+    }
+
+    void ExitApplication()
+    {
+        Environment.Exit(0);
+>>>>>>> 62e02c4a50f4067afbd47c8cf0d2075a273eb441
     }
 
     public void MenuHandler(int menuId = 0)

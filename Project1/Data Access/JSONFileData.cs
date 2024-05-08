@@ -22,10 +22,8 @@ public class JSONFileData : IDataAccess
     {
         if (FilePathExists(_usersFile))
         {
-            Console.WriteLine("File path exists.");
             if (!UserExists(user.UserName))
             {
-                Console.WriteLine("Username does not exist");
                 // New user name
                 List<User> existingUsers = GetUserList();
                 existingUsers.Add(user);
@@ -46,7 +44,6 @@ public class JSONFileData : IDataAccess
 
     void SaveUserData(List<User> users)
     {
-        Debug.WriteLine("SaveData");
         string json = JsonSerializer.Serialize(users);
         File.WriteAllText(_usersFile, json);
     }
