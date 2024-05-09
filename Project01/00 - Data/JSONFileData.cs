@@ -6,8 +6,8 @@ namespace TBG.Data;
 
 public class JSONFileData : IDataAccess
 {
-    private readonly static string _savesFile = "SavesFile.json";
-    private readonly static string _usersFile = "UsersFile.json";
+    private readonly static string _savesFile = "./json/SavesFile.json";
+    private readonly static string _usersFile = "./json/UsersFile.json";
 
     #region -- Saves -- 
 
@@ -92,8 +92,7 @@ public class JSONFileData : IDataAccess
         if (File.Exists(_usersFile))
         {
             List<User> existingUsers = GetUserList();
-            bool noDuplicatesFound = existingUsers.Any(user => user.UserName == userName);
-            return noDuplicatesFound;
+            return existingUsers.Any(user => user.UserName.ToLower() == userName.ToLower());
         }
         else
         {

@@ -3,6 +3,7 @@ namespace TBG;
 public class Save
 {
     public Guid gameId { get; set; }
+    public Guid userId { get; set; }
     public GameObject playerObject { get; set; }
     public int turns { get; set; }
     public int units { get; set; }

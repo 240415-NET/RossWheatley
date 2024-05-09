@@ -23,7 +23,7 @@ public static class PresentationUtility
         }
         else if (menuId == 1)
         {
-            Console.WriteLine($"Welcome, {session.ActiveUser.UserName}!");
+            Console.WriteLine($"Hello, {session.ActiveUser.UserName}!");
         }
     }
 
