@@ -66,6 +66,19 @@ public class JSONFileData : IDataAccess
         }
     }
 
+    public User GetUser(string userName)
+    {
+        List<User> users = GetUserList();
+        foreach (User user in users)
+        {
+            if (user.UserName == userName)
+            {
+                return user;
+            }
+        }
+        return new User();
+    }
+
     List<User> GetUserList()
     {
         string json = File.ReadAllText(_usersFile);

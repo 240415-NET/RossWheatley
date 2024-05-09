@@ -7,7 +7,9 @@ public class Menu
     Session session = new();
     IDataAccess dataAccess = new JSONFileData();
     string userInput = "";
-    
+
+    #region -- Handlers --
+
     void CreateNewUser()
     {
         bool repeat = false;
@@ -30,15 +32,37 @@ public class Menu
         User newUser = new(userInput);
         dataAccess.StoreUser(newUser);
         PresentationUtility.DisplayMessage("added", true);
-        session.ActiveUser = newUser;
+        Login(newUser);
+    }
+
+    void ExitApplication()
+    {
+        // Persist all data before close
+        Environment.Exit(0);
+    }
+
+    void Login(User user)
+    {
+        session.ActiveUser = user;
         Console.Clear();
         PresentationUtility.ShowLoadingAnimation(2, 100);
         MenuHandler(1);
     }
 
-    void ExitApplication()
+    void FindExistingUser()
     {
-        Environment.Exit(0);
+        Console.WriteLine("Enter your username:");
+        userInput = Console.ReadLine() ?? "";
+
+        if (dataAccess.UserExists(userInput))
+        {
+            Login(dataAccess.GetUser(userInput));
+        }
+        else
+        {
+            PresentationUtility.DisplayMessage("found", true);
+            MenuHandler();
+        }
     }
 
     public void MenuHandler(int menuId = 0)
@@ -59,7 +83,7 @@ public class Menu
 
                 PrintMenuArray(PresentationUtility.MenuArrays(menuId));
 
-                userInput = Console.ReadLine();
+                userInput = Console.ReadLine() ?? "";
 
                 try
                 {
@@ -74,10 +98,12 @@ public class Menu
 
             } while (repeat); // iterates only if the user's input is *not* valid
 
-        } while (ValidMenuSelection(userSelection, PresentationUtility.MenuArrays(menuId)));
-        
+        } while (!ValidMenuSelection(userSelection, PresentationUtility.MenuArrays(menuId)));
+
         MenuSelector(menuId, userSelection);
     }
+
+    #endregion
 
     #region -- Helpers --
 
@@ -92,6 +118,7 @@ public class Menu
                         CreateNewUser();
                         break;
                     case 2:
+                        FindExistingUser();
                         break;
                     case 3:
                         break;

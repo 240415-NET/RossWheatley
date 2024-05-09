@@ -11,6 +11,7 @@ public static class PresentationUtility
             {"continue","Press any key to continue."},
             {"default","Something went wrong. Please try again."},
             {"duplicate","That username may already exist. Please try again."},
+            {"found","That user could not be found."},
             {"invalid","Invalid input."},
         };
 
