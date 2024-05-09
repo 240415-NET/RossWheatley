@@ -20,8 +20,6 @@ public class Menu
             {
                 repeat = true;
                 Console.Clear();
-                PresentationUtility.ShowLoadingAnimation();
-                Console.Clear();
 
                 PresentationUtility.MenuHeader(session, menuId);
 
