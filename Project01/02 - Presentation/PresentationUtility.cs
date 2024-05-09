@@ -2,7 +2,7 @@ namespace TBG.Presentation;
 
 public static class PresentationUtility
 {
-    readonly static int loadingDuration = 4;
+    readonly static int loadingDuration = 2;
     readonly static int sleepTime = 200;
     private static bool displayArt = true;
     static Dictionary<string, string> messages = new Dictionary<string, string>()
@@ -14,6 +14,18 @@ public static class PresentationUtility
             {"found","That user could not be found."},
             {"invalid","Invalid input."},
         };
+
+    public static void MenuHeader(Session session, int menuId)
+    {
+        if (menuId == 0)
+        {
+            MenuArt();
+        }
+        else if (menuId == 1)
+        {
+            Console.WriteLine($"Welcome, {session.ActiveUser.UserName}!");
+        }
+    }
 
     public static void DisplayMessage(string input = "default", bool wait = true)
     {
@@ -34,9 +46,9 @@ public static class PresentationUtility
         switch (menu)
         {
             case 1:
-                return new string[] { "Continue previous game.", "Create new game.", "Return to main menu." };
+                return new string[] { "Continue previous game", "Create new game", "Main menu" };
             case 2:
-                return new string[] { "End turn", "Update attributes", "Attempt task", "Return to main menu" };
+                return new string[] { "End turn", "Update attributes", "Attempt task", "Go back","Main menu" };
             default:
                 return new string[] { "Create new user", "Login as existing user", "Exit" };
         }

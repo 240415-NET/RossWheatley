@@ -4,7 +4,9 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.TreatControlCAsInput = true;
+        // Forces the user to close the application using menu options
+        // However, disabling because it causes user to press enter twice to input through the console
+        // Console.TreatControlCAsInput = true;
         Menu menu = new();
         menu.MenuHandler();
     }
