@@ -2,16 +2,21 @@ namespace TBG;
 
 public class Save
 {
-    public Guid gameId { get; set; }
-    public Guid userId { get; set; }
-    public GameObject playerObject { get; set; }
-    public int turns { get; set; }
-    public int units { get; set; }
+    public Guid SaveId { get; set; }
+    public Guid UserId { get; set; }
+    public GameObject PlayerObject { get; set; }
+    public DateTime SaveDate { get; set; }
+    public int Turns { get; set; }
+    public int Units { get; set; }
 
-    public Save()
+    public Save() { }
+    public Save(User user, GameObject player)
     {
-        gameId = Guid.NewGuid();
-        turns = 25;
-        units = 2;
+        SaveId = Guid.NewGuid();
+        UserId = user.UserId;
+        PlayerObject = player;
+        SaveDate = DateTime.Now;
+        Turns = 25;
+        Units = 2;
     }
 }

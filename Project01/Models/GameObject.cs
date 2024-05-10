@@ -2,46 +2,45 @@ namespace TBG;
 
 public class GameObject
 {
-    private Guid? gameId;
-    private bool isEnemy;
-    private int characterClass; // # between 1 - 3
-    private int level;
-    private int experience;
-    private int skillPoints;
-    private int[] skills = new int[2];
-    // private int skill1; // attack
-    // private int skill2; // defense
-    private int attributePoints;
-    private int[] attributes = new int[3];
-    // private int attributeA; // strength
-    // private int attributeB; // dexterity
-    // private int attributeC; // Luck
+    public bool IsPlayer { get; set; }
+    public int CharacterClass { get; set; } // # between 1 - 3
+    public int Level { get; set; }
+    public int Experience { get; set; }
+    public int SkillPoints { get; set; }
+    public int[] Skills { get; set; }
+    public int AttributePoints { get; set; }
+    public int[] Attributes { get; set; }
 
-    public GameObject(bool isEnemy, int level = 1, Guid? gameId = null)
+    public GameObject() { }
+
+    public GameObject(bool isPlayer, int level = 1/*, Guid? gameId = null*/)
     {
-        if (isEnemy)
+        Skills = new int[2];
+        Attributes = new int[3];
+
+        IsPlayer = isPlayer;
+        Experience = 0;
+        Level = level;
+
+        if (IsPlayer)
         {
-            this.gameId = gameId;
-            this.isEnemy = false;
-            this.level = level;
-            experience = 0;
-            skillPoints = 2;
-            skills[0] = 1;
-            skills[1] = 1;
-            attributePoints = 2;
-            attributes[0] = 1;
-            attributes[1] = 1;
-            attributes[2] = 1;
+            SkillPoints = 2;
+            Skills[0] = 1;
+            Skills[1] = 1;
+            AttributePoints = 2;
+            Attributes[0] = 1;
+            Attributes[1] = 1;
+            Attributes[2] = 1;
+
         }
         else
         {
-            // build an enemy
-            this.isEnemy = true;
-            RandomizePoints(level);
+            RandomizePoints(Level);
         }
+
     }
 
-    void RandomizePoints(int level)
+    private void RandomizePoints(int level)
     {
         Random random = new Random();
 
@@ -52,13 +51,13 @@ public class GameObject
         // Randomly assigns points
         do
         {
-            skills[random.Next(2)] += 1;
+            Skills[random.Next(2)] += 1;
             skillPoints -= 1;
         } while (skillPoints > 0);
 
         do
         {
-            attributes[random.Next(3)] += 1;
+            Attributes[random.Next(3)] += 1;
             attributePoints -= 1;
         } while (attributePoints > 0);
     }

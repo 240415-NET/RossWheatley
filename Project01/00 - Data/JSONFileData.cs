@@ -14,13 +14,37 @@ public class JSONFileData : IDataAccess
     void DeleteSave(Save save)
     {
         List<Save> saves = GetSaveList();
-        saves.RemoveAll(s => s.gameId == save.gameId);
+        saves.RemoveAll(s => s.SaveId == save.SaveId);
+        SaveSaveData(saves);
     }
 
+    // Returns list of all saves in json
     public List<Save> GetSaveList()
     {
         string json = File.ReadAllText(_savesFile);
         return JsonSerializer.Deserialize<List<Save>>(json) ?? new List<Save>();
+    }
+
+    // Returns list of saves associated with a specific user
+    public List<Save> GetUserSavesList(User user)
+    {
+        // List to hold saves specific to user
+        List<Save> userList = new();
+
+        if (File.Exists(_savesFile))
+        {
+            // All saves
+            List<Save> saveList = GetSaveList();
+
+            foreach (Save save in saveList)
+            {
+                if (save.UserId == user.UserId)
+                {
+                    userList.Add(save);
+                }
+            }
+        }
+        return userList;
     }
 
     bool SaveExists(Save save)
@@ -31,7 +55,7 @@ public class JSONFileData : IDataAccess
         {
             saves = GetSaveList();
         }
-        return saves.Exists(s => s.gameId == save.gameId);
+        return saves.Exists(s => s.SaveId == save.SaveId);
     }
 
     void SaveSaveData(List<Save> saves)
@@ -40,7 +64,7 @@ public class JSONFileData : IDataAccess
         File.WriteAllText(_savesFile, json);
     }
 
-    public void StoreSave(Save save)
+    public void PersistSave(Save save)
     {
         List<Save> saves = new();
         if (File.Exists(_savesFile))
@@ -51,8 +75,6 @@ public class JSONFileData : IDataAccess
                 DeleteSave(save);
             }
             saves = GetSaveList();
-            saves.Add(save);
-            SaveSaveData(saves);
         }
         saves.Add(save);
         SaveSaveData(saves);

@@ -63,6 +63,7 @@ public class Menu
                         break;
                     default:
                         PresentationUtility.DisplayMessage("invalid", true);
+                        MenuHandler();
                         break;
                 }
                 break;
@@ -70,7 +71,7 @@ public class Menu
                 switch (selection)
                 {
                     case 1:
-
+                        ContinueSave();
                         break;
                     case 2:
                         CreateNewGame();
@@ -93,10 +94,12 @@ public class Menu
                     case 3:
                         break;
                     case 4:
-                        MenuHandler(1);
+                        AutoPersistActiveSave();
+                        MenuHandler(1); // Go back
                         break;
                     case 5:
-                        MenuHandler();
+                        AutoPersistActiveSave();
+                        MenuHandler(); // main menu
                         break;
                     default:
                         PresentationUtility.DisplayMessage("invalid", true);
@@ -107,7 +110,6 @@ public class Menu
                 PresentationUtility.DisplayMessage();
                 MenuHandler();
                 break;
-
         }
     }
 
@@ -142,7 +144,10 @@ public class Menu
 
     void ExitApplication()
     {
-        // Persist all data before close
+        if (session.ActiveSave != null)
+        {
+            AutoPersistActiveSave();
+        }
         Environment.Exit(0);
     }
 
@@ -156,6 +161,7 @@ public class Menu
 
     void FindExistingUser()
     {
+        Console.Clear();
         Console.WriteLine("Enter your username:");
         userInput = Console.ReadLine() ?? "";
 
@@ -177,11 +183,68 @@ public class Menu
 
     void CreateNewGame()
     {
-        session.ActiveSave = new Save();
-        dataAccess.StoreSave(session.ActiveSave);
+        session.ActiveSave = new Save(session.ActiveUser, new GameObject(true));
+        dataAccess.PersistSave(session.ActiveSave);
         Console.Clear();
         PresentationUtility.ShowLoadingAnimation();
         MenuHandler(2);
+    }
+
+    void ContinueSave()
+    {
+        Console.Clear();
+        PresentationUtility.ShowLoadingAnimation(); // Pomp and circumstance
+
+        int userSelection = 0;
+        bool repeat;
+
+        List<Save> saves = dataAccess.GetUserSavesList(session.ActiveUser);
+        if (saves.Count() > 0)
+        {
+            do
+            {
+                repeat = true;
+                Console.Clear();
+                Console.WriteLine("Please select which save to continue:");
+                for (int i = 0; i < saves.Count(); i++)
+                {
+                    Console.WriteLine($"{i + 1}. Last saved: {saves[i].SaveDate/*.ToShortDateString()*/}");
+                }
+                userInput = Console.ReadLine() ?? "";
+                try
+                {
+                    userSelection = Convert.ToInt32(userInput);
+                    if (userSelection > saves.Count())
+                    {
+                        repeat = true;
+                    }
+                    else
+                    {
+                        repeat = false;
+                    }
+                }
+                catch
+                {
+                    repeat = true; // If user input cannot be converted to int
+                }
+                if (repeat)
+                {
+                    PresentationUtility.DisplayMessage("invalid", true);
+                }
+            } while (repeat);
+
+            // Set the active save and move forward
+            Console.Clear();
+            session.ActiveSave = saves[userSelection - 1];
+            PresentationUtility.ShowLoadingAnimation();
+            MenuHandler(2);
+        }
+        else
+        {
+            Console.Clear();
+            PresentationUtility.DisplayMessage("nosave", true);
+            MenuHandler(1);
+        }
     }
 
     #endregion
@@ -208,6 +271,12 @@ public class Menu
     bool ValidMenuSelection(int userSelection, string[] options)
     {
         return userSelection <= options.Length;
+    }
+
+    void AutoPersistActiveSave()
+    {
+        session.ActiveSave.SaveDate = DateTime.Now;
+        dataAccess.PersistSave(session.ActiveSave);
     }
 
     #endregion

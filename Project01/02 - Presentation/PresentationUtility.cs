@@ -13,6 +13,7 @@ public static class PresentationUtility
             {"duplicate","That username may already exist. Please try again."},
             {"found","That user could not be found."},
             {"invalid","Invalid input."},
+            {"nosave","No save data found for active user."}
         };
 
     public static void MenuHeader(Session session, int menuId)
@@ -48,7 +49,7 @@ public static class PresentationUtility
             case 1:
                 return new string[] { "Continue previous game", "Create new game", "Main menu" };
             case 2:
-                return new string[] { "End turn", "Update attributes", "Attempt task", "Go back","Main menu" };
+                return new string[] { "End turn", "Update attributes", "Attempt task", "Go back", "Main menu" };
             default:
                 return new string[] { "Create new user", "Login as existing user", "Exit" };
         }

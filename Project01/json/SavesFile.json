@@ -1,1 +1,50 @@
-[{"gameId":"9ec40153-896d-49c4-9ec2-2e706cf2a810","playerObject":null,"turns":25,"units":2},{"gameId":"561f3151-471b-4aaa-bec0-05682ea8c12e","playerObject":null,"turns":25,"units":2},{"gameId":"561f3151-471b-4aaa-bec0-05682ea8c12e","playerObject":null,"turns":25,"units":2}]
+[
+    {
+        "SaveId": "58b53a70-be1b-4f32-bd04-4fe981916bdb",
+        "UserId": "a35911d5-2e52-4120-856c-276768a8012e",
+        "PlayerObject": {
+            "IsPlayer": true,
+            "CharacterClass": 0,
+            "Level": 1,
+            "Experience": 0,
+            "SkillPoints": 2,
+            "Skills": [
+                1,
+                1
+            ],
+            "AttributePoints": 2,
+            "Attributes": [
+                1,
+                1,
+                1
+            ]
+        },
+        "SaveDate": "2024-05-09T21:20:30.4655143-04:00",
+        "Turns": 25,
+        "Units": 2
+    },
+    {
+        "SaveId": "57a30249-ce3d-44c7-a5ec-b836a92bb0ff",
+        "UserId": "a35911d5-2e52-4120-856c-276768a8012e",
+        "PlayerObject": {
+            "IsPlayer": true,
+            "CharacterClass": 0,
+            "Level": 1,
+            "Experience": 0,
+            "SkillPoints": 2,
+            "Skills": [
+                1,
+                1
+            ],
+            "AttributePoints": 2,
+            "Attributes": [
+                1,
+                1,
+                1
+            ]
+        },
+        "SaveDate": "2024-05-09T21:34:28.7849881-04:00",
+        "Turns": 25,
+        "Units": 2
+    }
+]
