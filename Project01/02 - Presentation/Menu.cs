@@ -6,6 +6,8 @@ public class Menu
 {
     Session session = new();
     IDataAccess dataAccess = new JSONFileData();
+    Menu_User userMenu = new();
+    Menu_Main mainMenu = new();
     string userInput = "";
 
     #region -- Handler & Selector -- 
@@ -53,10 +55,10 @@ public class Menu
                 switch (selection)
                 {
                     case 1:
-                        CreateNewUser();
+                        mainMenu.CreateNewUser(this, session, dataAccess);
                         break;
                     case 2:
-                        FindExistingUser();
+                        mainMenu.FindExistingUser(this, session, dataAccess);
                         break;
                     case 3:
                         ExitApplication();
@@ -71,10 +73,10 @@ public class Menu
                 switch (selection)
                 {
                     case 1:
-                        ContinueSave();
+                        userMenu.ContinueSave(this, session, dataAccess);
                         break;
                     case 2:
-                        CreateNewGame();
+                        userMenu.CreateNewGame(this, session, dataAccess);
                         break;
                     case 3: // Return to main
                         MenuHandler(); // Returns to main menu
@@ -113,147 +115,24 @@ public class Menu
         }
     }
 
-    #endregion 
+    #endregion
 
-    #region -- Main Menu --
+    #region -- Helpers --
 
-    void CreateNewUser()
-    {
-        bool repeat = false;
-        do
-        {
-            repeat = true;
-            Console.Clear();
-            Console.WriteLine("Please enter a user name: ");
-            userInput = Console.ReadLine() ?? "";
-            if (!dataAccess.UserExists(userInput))
-            {
-                repeat = false;
-            }
-            else
-            {
-                PresentationUtility.DisplayMessage("duplicate", true);
-            }
-        } while (repeat); // Will prompt for user input again if user name already exists
-
-        User newUser = new(userInput);
-        dataAccess.StoreUser(newUser);
-        PresentationUtility.DisplayMessage("added", true);
-        Login(newUser);
-    }
-
-    void ExitApplication()
+    public void AutoPersistActiveSave()
     {
         if (session.ActiveSave != null)
         {
-            AutoPersistActiveSave();
+            session.ActiveSave.SaveDate = DateTime.Now;
+            dataAccess.PersistSave(session.ActiveSave);
         }
+    }
+
+    public void ExitApplication()
+    {
+        AutoPersistActiveSave();
         Environment.Exit(0);
     }
-
-    void Login(User user)
-    {
-        session.ActiveUser = user;
-        Console.Clear();
-        PresentationUtility.ShowLoadingAnimation();
-        MenuHandler(1);
-    }
-
-    void FindExistingUser()
-    {
-        Console.Clear();
-        Console.WriteLine("Enter your username:");
-        userInput = Console.ReadLine() ?? "";
-
-        if (dataAccess.UserExists(userInput))
-        {
-            Login(dataAccess.GetUser(userInput));
-        }
-        else
-        {
-            PresentationUtility.DisplayMessage("found", true);
-            PresentationUtility.ShowLoadingAnimation();
-            MenuHandler();
-        }
-    }
-
-    #endregion
-
-    #region -- User Menu -- 
-
-    void CreateNewGame()
-    {
-        session.ActiveSave = new Save(session.ActiveUser, new GameObject(true));
-        dataAccess.PersistSave(session.ActiveSave);
-        Console.Clear();
-        PresentationUtility.ShowLoadingAnimation();
-        MenuHandler(2);
-    }
-
-    void ContinueSave()
-    {
-        Console.Clear();
-        PresentationUtility.ShowLoadingAnimation(); // Pomp and circumstance
-
-        int userSelection = 0;
-        bool repeat;
-
-        List<Save> saves = dataAccess.GetUserSavesList(session.ActiveUser);
-        if (saves.Count() > 0)
-        {
-            do
-            {
-                repeat = true;
-                Console.Clear();
-                Console.WriteLine("Please select which save to continue:");
-                for (int i = 0; i < saves.Count(); i++)
-                {
-                    Console.WriteLine($"{i + 1}. Last saved: {saves[i].SaveDate/*.ToShortDateString()*/}");
-                }
-                userInput = Console.ReadLine() ?? "";
-                try
-                {
-                    userSelection = Convert.ToInt32(userInput);
-                    if (userSelection > saves.Count())
-                    {
-                        repeat = true;
-                    }
-                    else
-                    {
-                        repeat = false;
-                    }
-                }
-                catch
-                {
-                    repeat = true; // If user input cannot be converted to int
-                }
-                if (repeat)
-                {
-                    PresentationUtility.DisplayMessage("invalid", true);
-                }
-            } while (repeat);
-
-            // Set the active save and move forward
-            Console.Clear();
-            session.ActiveSave = saves[userSelection - 1];
-            PresentationUtility.ShowLoadingAnimation();
-            MenuHandler(2);
-        }
-        else
-        {
-            Console.Clear();
-            PresentationUtility.DisplayMessage("nosave", true);
-            MenuHandler(1);
-        }
-    }
-
-    #endregion
-
-    #region -- Save Menu --
-
-    #endregion 
-
-    #region -- Helpers --
 
     void PrintMenuArray(string[] options, bool clear = false)
     {
@@ -271,12 +150,6 @@ public class Menu
     bool ValidMenuSelection(int userSelection, string[] options)
     {
         return userSelection <= options.Length;
-    }
-
-    void AutoPersistActiveSave()
-    {
-        session.ActiveSave.SaveDate = DateTime.Now;
-        dataAccess.PersistSave(session.ActiveSave);
     }
 
     #endregion
