@@ -5530,11 +5530,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Tools\\repos\\RossWheatley\\Project01.Test\\Project01.Test.csproj",
+      "projectUniqueName": "c:\\Tools\\repos\\RossWheatley\\Project01.Test\\Project01.Test.csproj",
       "projectName": "Project01.Test",
-      "projectPath": "C:\\Tools\\repos\\RossWheatley\\Project01.Test\\Project01.Test.csproj",
+      "projectPath": "c:\\Tools\\repos\\RossWheatley\\Project01.Test\\Project01.Test.csproj",
       "packagesPath": "C:\\Users\\A170420\\.nuget\\packages\\",
-      "outputPath": "C:\\Tools\\repos\\RossWheatley\\Project01.Test\\obj\\",
+      "outputPath": "c:\\Tools\\repos\\RossWheatley\\Project01.Test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5556,8 +5556,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Tools\\repos\\RossWheatley\\Project01\\Project01.csproj": {
-              "projectPath": "C:\\Tools\\repos\\RossWheatley\\Project01\\Project01.csproj"
+            "c:\\Tools\\repos\\RossWheatley\\Project01\\Project01.csproj": {
+              "projectPath": "c:\\Tools\\repos\\RossWheatley\\Project01\\Project01.csproj"
             }
           }
         }

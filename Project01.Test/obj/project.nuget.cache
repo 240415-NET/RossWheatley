@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DU6m/g3CRhFwENPQmURKdVRjgFigd53d7hzb4w21qt4yLbNkLWDWzrIMl3wZ1Lh+p7T1JJ29b/aEq4k5VScBWA==",
+  "dgSpecHash": "xJIk5kMfaVYYAKgijvB6CxBTgwgVEddPZMLTUZOHJrbzvgCjFFrUyObpViPS14xJwhWkChyh6wUNlamtxc4mIQ==",
   "success": true,
-  "projectFilePath": "C:\\Tools\\repos\\RossWheatley\\Project01.Test\\Project01.Test.csproj",
+  "projectFilePath": "c:\\Tools\\repos\\RossWheatley\\Project01.Test\\Project01.Test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\A170420\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
     "C:\\Users\\A170420\\.nuget\\packages\\microsoft.codecoverage\\17.8.0\\microsoft.codecoverage.17.8.0.nupkg.sha512",

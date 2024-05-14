@@ -5,9 +5,9 @@ namespace TBG.Presentation;
 public class Menu
 {
     Session session = new();
-    IDataAccess dataAccess = new JSONFileData();
     Menu_User userMenu = new();
     Menu_Main mainMenu = new();
+    IDataAccess dataAccess = new JSONFileData();
     string userInput = "";
 
     #region -- Handler & Selector -- 
@@ -41,8 +41,17 @@ public class Menu
                 }
 
             } while (repeat); // iterates only if the user's input is *not* valid
+            if (ValidMenuSelection(userSelection, PresentationUtility.MenuArrays(menuId)))
+            {
+                repeat = false;
+            }
+            else
+            {
+                PresentationUtility.DisplayMessage("invalid", true);
+                repeat = true;
+            }
 
-        } while (!ValidMenuSelection(userSelection, PresentationUtility.MenuArrays(menuId)));
+        } while (repeat);
 
         MenuSelector(menuId, userSelection);
     }

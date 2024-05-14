@@ -1,1 +1,6 @@
-[{"UserId":"a35911d5-2e52-4120-856c-276768a8012e","UserName":"Ross"}]
+[
+    {
+        "UserId": "a35911d5-2e52-4120-856c-276768a8012e",
+        "UserName": "Ross"
+    }
+]

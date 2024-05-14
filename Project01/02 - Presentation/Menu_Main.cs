@@ -2,8 +2,6 @@ namespace TBG.Presentation;
 
 public class Menu_Main
 {
-    #region -- Main Menu --
-
     public void CreateNewUser(Menu menu, Session session, IDataAccess dataAccess)
     {
         bool repeat = false;
@@ -54,6 +52,4 @@ public class Menu_Main
             menu.MenuHandler();
         }
     }
-
-    #endregion
 }

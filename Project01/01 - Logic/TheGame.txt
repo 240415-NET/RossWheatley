@@ -1,0 +1,10 @@
+Player Object holds 2 skills and 3 attributes
+Player "moves" across an imaginary board
+Each block can contain 1 task that can be attempted 1 time
+
+Save Menu:
+- Move
+- Attempt task
+- View/Update Player
+- Go back
+- Main menu

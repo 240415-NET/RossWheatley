@@ -9,10 +9,3 @@ public class Session
 
     public Session() { }
 }
-
-public class SaveFile
-{
-    public List<Item> Items;
-    public List<Pet> Pets;
-    public List<Document> Documents;
-}

@@ -4,8 +4,6 @@ public class Menu_User
 {
     string userInput = "";
 
-    #region -- User Menu -- 
-
     public void CreateNewGame(Menu menu, Session session, IDataAccess dataAccess)
     {
         session.ActiveSave = new Save(session.ActiveUser, new GameObject(true));
@@ -71,6 +69,4 @@ public class Menu_User
             menu.MenuHandler(1);
         }
     }
-
-    #endregion
 }
