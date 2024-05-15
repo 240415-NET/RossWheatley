@@ -1,3 +1,5 @@
+using TBG.Logic;
+
 namespace TBG.Presentation;
 
 public static class PresentationUtility
@@ -18,7 +20,7 @@ public static class PresentationUtility
             {"allocated","Points successfully allocated."}
         };
 
-    public static void MenuHeader(Session session, int menuId)
+    public static void MenuHeader(int menuId)
     {
         if (menuId == 0)
         {
@@ -26,7 +28,7 @@ public static class PresentationUtility
         }
         else if (menuId == 1)
         {
-            Console.WriteLine($"Hello, {session.ActiveUser.UserName}!");
+            Console.WriteLine($"Hello, {SessionHandler.CurrentSession.ActiveUser.UserName}!");
         }
     }
 

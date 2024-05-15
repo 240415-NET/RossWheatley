@@ -1,6 +1,6 @@
 using System.Reflection.Metadata;
 
-namespace TBG;
+namespace TBG.Logic;
 
 public class Session
 {
