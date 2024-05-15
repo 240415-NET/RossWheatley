@@ -1,15 +1,11 @@
-using TBG.Data;
+using TBG.Logic;
 
 namespace TBG.Presentation;
 
 public class Menu
 {
-    Session session = new();
-    Menu_User userMenu = new();
-    Menu_Main mainMenu = new();
-    Menu_Save saveMenu = new();
-    IDataAccess dataAccess = new JSONFileData();
-    string userInput = "";
+    // String to hold user input
+    string userInput = string.Empty;
 
     #region -- Handler & Selector -- 
 
@@ -24,7 +20,7 @@ public class Menu
                 repeat = true;
                 Console.Clear();
 
-                PresentationUtility.MenuHeader(session, menuId);
+                PresentationUtility.MenuHeader(menuId);
 
                 PrintMenuArray(PresentationUtility.MenuArrays(menuId));
 
@@ -59,16 +55,21 @@ public class Menu
 
     void MenuSelector(int menuId, int selection)
     {
+        // Menus abstracted out for code organization
+        Menu_User userMenu = new();
+        Menu_Main mainMenu = new();
+        Menu_Game gameMenu = new();
+
         switch (menuId)
         {
             case 0: // Main Menu
                 switch (selection)
                 {
                     case 1:
-                        mainMenu.CreateNewUser(this, session, dataAccess);
+                        mainMenu.CreateNewUser(this);
                         break;
                     case 2:
-                        mainMenu.FindExistingUser(this, session, dataAccess);
+                        mainMenu.FindExistingUser(this);
                         break;
                     case 3:
                         ExitApplication();
@@ -83,10 +84,10 @@ public class Menu
                 switch (selection)
                 {
                     case 1:
-                        userMenu.ContinueSave(this, session, dataAccess);
+                        userMenu.ContinueSave(this);
                         break;
                     case 2:
-                        userMenu.CreateNewGame(this, session, dataAccess);
+                        userMenu.CreateNewGame(this);
                         break;
                     case 3: // Return to main
                         MenuHandler(); // Returns to main menu
@@ -96,7 +97,7 @@ public class Menu
                         break;
                 }
                 break;
-            case 2: // Save Menu
+            case 2: // In-Game Menu
                 switch (selection)
                 {
                     case 1:
@@ -108,17 +109,17 @@ public class Menu
                     case 4:
                         break;
                     case 5:
-                        saveMenu.CharacterDisplay(this, session);
+                        gameMenu.CharacterDisplay(this);
                         break;
                     case 6:
-                        saveMenu.ChangeClass(this, session);
+                        gameMenu.ChangeClass(this);
                         break;
                     case 7:
-                        AutoPersistActiveSave();
+                        SaveHandler.AutoPersistActiveSave();
                         MenuHandler(1); // Go back
                         break;
                     case 8:
-                        AutoPersistActiveSave();
+                        SaveHandler.AutoPersistActiveSave();
                         MenuHandler(); // main menu
                         break;
                     default:
@@ -137,21 +138,11 @@ public class Menu
 
     #region -- Helpers --
 
-    public void AutoPersistActiveSave()
-    {
-        if (session.ActiveSave != null)
-        {
-            session.ActiveSave.SaveDate = DateTime.Now;
-            dataAccess.PersistSave(session.ActiveSave);
-        }
-    }
-
     public void ExitApplication()
     {
-        AutoPersistActiveSave();
+        SaveHandler.AutoPersistActiveSave();
         Environment.Exit(0);
     }
-
 
     public string IntToLetters(int value)
     {

@@ -1,8 +1,10 @@
+using TBG.Logic;
+
 namespace TBG.Presentation;
 
 public class Menu_Main
 {
-    public void CreateNewUser(Menu menu, Session session, IDataAccess dataAccess)
+    public void CreateNewUser(Menu menu)
     {
         bool repeat = false;
         string userInput;
@@ -12,39 +14,43 @@ public class Menu_Main
             Console.Clear();
             Console.WriteLine("Please enter a user name: ");
             userInput = Console.ReadLine() ?? "";
-            if (!dataAccess.UserExists(userInput))
+
+            repeat = LoginHandler.CheckUserExists(userInput); // repeat if user already exists
+
+            if (repeat)
             {
-                repeat = false;
-            }
-            else
-            {
+                // User already exists
                 PresentationUtility.DisplayMessage("duplicate", true);
             }
         } while (repeat); // Will prompt for user input again if user name already exists
 
-        User newUser = new(userInput);
-        dataAccess.StoreUser(newUser);
-        PresentationUtility.DisplayMessage("added", true);
-        Login(menu, session, newUser);
+        if (LoginHandler.CreateNewUser(userInput))
+        {
+            PresentationUtility.DisplayMessage("added");
+            // Proceed to login if success
+            Console.Clear();
+            PresentationUtility.ShowLoadingAnimation();
+            menu.MenuHandler(1);
+        }
+        else
+        {
+            // Go back to main menu if something fails
+            PresentationUtility.DisplayMessage();
+            menu.MenuHandler();
+        }
     }
 
-    void Login(Menu menu, Session session, User user)
-    {
-        session.ActiveUser = user;
-        Console.Clear();
-        PresentationUtility.ShowLoadingAnimation();
-        menu.MenuHandler(1);
-    }
-
-    public void FindExistingUser(Menu menu,Session session, IDataAccess dataAccess)
+    public void FindExistingUser(Menu menu)
     {
         Console.Clear();
         Console.WriteLine("Enter your username:");
         string userInput = Console.ReadLine() ?? "";
 
-        if (dataAccess.UserExists(userInput))
+        if (LoginHandler.FindExistingUser(userInput))
         {
-            Login(menu, session, dataAccess.GetUser(userInput));
+            Console.Clear();
+            PresentationUtility.ShowLoadingAnimation();
+            menu.MenuHandler(1);
         }
         else
         {

@@ -1,19 +1,27 @@
+using TBG.Logic;
+
 namespace TBG.Presentation;
 
 public class Menu_User
 {
-    string userInput = "";
+    string userInput = string.Empty;
 
-    public void CreateNewGame(Menu menu, Session session, IDataAccess dataAccess)
+    public void CreateNewGame(Menu menu)
     {
-        session.ActiveSave = new Save(session.ActiveUser, new GameObject(true));
-        dataAccess.PersistSave(session.ActiveSave);
-        Console.Clear();
-        PresentationUtility.ShowLoadingAnimation();
-        menu.MenuHandler(2);
+        if (SaveHandler.CreateNewGame())
+        {
+            Console.Clear();
+            PresentationUtility.ShowLoadingAnimation();
+            menu.MenuHandler(2);
+        }
+        else
+        {
+            PresentationUtility.DisplayMessage();
+            menu.MenuHandler(1);
+        }
     }
 
-    public void ContinueSave(Menu menu, Session session, IDataAccess dataAccess)
+    public void ContinueSave(Menu menu)
     {
         Console.Clear();
         PresentationUtility.ShowLoadingAnimation(); // Pomp and circumstance
@@ -21,19 +29,24 @@ public class Menu_User
         int userSelection = 0;
         bool repeat;
 
-        List<Save> saves = dataAccess.GetUserSavesList(session.ActiveUser);
-        if (saves.Count() > 0)
+        List<string> saves = SaveHandler.GetUserSavesList();
+        if (saves.Count() > 0) // If list is not empty
         {
             do
             {
                 repeat = true;
                 Console.Clear();
                 Console.WriteLine("Please select which save to continue:");
-                for (int i = 0; i < saves.Count(); i++)
+
+                // Display list of saves
+                foreach (string saveString in saves)
                 {
-                    Console.WriteLine($"{i + 1}. Last saved: {saves[i].SaveDate/*.ToShortDateString()*/}");
+                    Console.WriteLine(saveString);
                 }
+
                 userInput = Console.ReadLine() ?? "";
+
+                // Input validation
                 try
                 {
                     userSelection = Convert.ToInt32(userInput);
@@ -52,20 +65,28 @@ public class Menu_User
                 }
                 if (repeat)
                 {
-                    PresentationUtility.DisplayMessage("invalid", true);
+                    PresentationUtility.DisplayMessage("invalid");
                 }
             } while (repeat);
 
             // Set the active save and move forward
             Console.Clear();
-            session.ActiveSave = saves[userSelection - 1];
-            PresentationUtility.ShowLoadingAnimation();
-            menu.MenuHandler(2);
+
+            if (SaveHandler.LoadSave(userSelection))
+            {
+                PresentationUtility.ShowLoadingAnimation();
+                menu.MenuHandler(2);
+            }
+            else
+            {
+                PresentationUtility.DisplayMessage();
+                menu.MenuHandler(1);
+            }
         }
         else
         {
             Console.Clear();
-            PresentationUtility.DisplayMessage("nosave", true);
+            PresentationUtility.DisplayMessage("nosave");
             menu.MenuHandler(1);
         }
     }

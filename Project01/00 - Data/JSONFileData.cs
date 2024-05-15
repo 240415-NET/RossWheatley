@@ -25,28 +25,6 @@ public class JSONFileData : IDataAccess
         return JsonSerializer.Deserialize<List<Save>>(json) ?? new List<Save>();
     }
 
-    // Returns list of saves associated with a specific user
-    public List<Save> GetUserSavesList(User user)
-    {
-        // List to hold saves specific to user
-        List<Save> userList = new();
-
-        if (File.Exists(_savesFile))
-        {
-            // All saves
-            List<Save> saveList = GetSaveList();
-
-            foreach (Save save in saveList)
-            {
-                if (save.UserId == user.UserId)
-                {
-                    userList.Add(save);
-                }
-            }
-        }
-        return userList;
-    }
-
     bool SaveExists(Save save)
     {
         List<Save> saves = new();
@@ -97,7 +75,7 @@ public class JSONFileData : IDataAccess
         return new User();
     }
 
-    List<User> GetUserList()
+    public List<User> GetUserList()
     {
         string json = File.ReadAllText(_usersFile);
         return JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
@@ -109,34 +87,15 @@ public class JSONFileData : IDataAccess
         File.WriteAllText(_usersFile, json);
     }
 
-    public bool UserExists(string userName)
-    {
-        if (File.Exists(_usersFile))
-        {
-            List<User> existingUsers = GetUserList();
-            return existingUsers.Any(user => user.UserName.ToLower() == userName.ToLower());
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public void StoreUser(User user)
     {
         if (File.Exists(_usersFile))
         {
-            if (!UserExists(user.UserName))
-            {
-                // New user name
-                List<User> existingUsers = GetUserList();
-                existingUsers.Add(user);
-                SaveUserData(existingUsers);
-            }
-            else
-            {
-                // Username already exists
-            }
+            // New user name
+            List<User> existingUsers = GetUserList();
+            existingUsers.Add(user);
+            SaveUserData(existingUsers);
+
         }
         else
         {
