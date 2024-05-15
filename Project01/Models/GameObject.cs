@@ -46,6 +46,7 @@ public class GameObject
             Attributes[1] = 1;
             Attributes[2] = 1;
             CharacterClass = 1;
+            Coordinates = (0, 0);
 
         }
         else

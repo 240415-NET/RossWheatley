@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace TBG;
 
 public class Save
@@ -10,6 +12,7 @@ public class Save
     public int Units { get; set; }
     public List<int> Tasks { get; set; } // board positions where tasks are populated
     public List<int> Encounters { get; set; } // board positions where encounters occur
+    public (int x, int y) GridConstraints { get; set; }
 
     public Save() { }
     public Save(User user, GameObject player)
@@ -20,21 +23,11 @@ public class Save
         SaveDate = DateTime.Now;
         Turns = 25;
         Units = 2;
+        SetGridConstraints(Turns);
     }
 
-    List<int> BoardRandomizeUtility(int typeId)
+    (int x, int y) SetGridConstraints(int turns)
     {
-        Random random = new();
-        int count;
-        if (typeId == 0) // Tasks
-        {
-            count = Convert.ToInt32(Math.Round(Convert.ToDouble(Turns / 2))) + random.Next(Convert.ToInt32(Math.Round(Convert.ToDouble(Turns / 2))));
-        }
-        else // Encounters
-        {
-            count = Convert.ToInt32(Math.Round(Convert.ToDouble(Turns / 4))) + random.Next(Convert.ToInt32(Math.Round(Convert.ToDouble(Turns / 2))));
-        }
-
-        return new List<int>();
+        return ((int)Math.Ceiling((double)turns / 2), (int)Math.Ceiling((double)turns / 2));
     }
 }

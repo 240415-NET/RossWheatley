@@ -8,4 +8,5 @@ public interface IDataAccess
     User GetUser(string userName);
     List<User> GetUserList();
     List<Save> GetSaveList();
+    bool CheckFileExists(int fileIndex);
 }

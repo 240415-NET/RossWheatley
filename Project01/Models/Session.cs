@@ -2,10 +2,10 @@ using System.Reflection.Metadata;
 
 namespace TBG.Logic;
 
-public class Session
+public static class Session
 {
-    public User ActiveUser { get; set; }
-    public Save ActiveSave { get; set; }
-
+    public static User ActiveUser { get; set; }
+    public static Save ActiveSave { get; set; }
+    public static IDataAccess DataAccess { get; set; }
     public Session() { }
 }

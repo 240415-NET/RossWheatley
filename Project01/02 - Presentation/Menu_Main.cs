@@ -54,7 +54,7 @@ public class Menu_Main
         }
         else
         {
-            PresentationUtility.DisplayMessage("found", true);
+            PresentationUtility.DisplayMessage("notfound", true);
             menu.MenuHandler();
         }
     }

@@ -2,11 +2,11 @@ using TBG.Logic;
 
 namespace TBG.Presentation;
 
-public class Menu_User
+public static class Menu_User
 {
-    string userInput = string.Empty;
+    static string userInput = string.Empty;
 
-    public void CreateNewGame(Menu menu)
+    public static void CreateNewGame(Menu menu)
     {
         if (SaveHandler.CreateNewGame())
         {
@@ -21,7 +21,7 @@ public class Menu_User
         }
     }
 
-    public void ContinueSave(Menu menu)
+    public static void ContinueSave(Menu menu)
     {
         Console.Clear();
         PresentationUtility.ShowLoadingAnimation(); // Pomp and circumstance

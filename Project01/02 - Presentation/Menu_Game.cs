@@ -2,14 +2,14 @@ using TBG.Logic;
 
 namespace TBG.Presentation;
 
-public class Menu_Game
+public static class Menu_Game
 {
-    string userInput = String.Empty;
-    GameObject character = new();
+    static string userInput = String.Empty;
+    static GameObject character = new();
 
     #region -- Displays --
 
-    public void ChangeClass(Menu menu)
+    public static void ChangeClass(Menu menu)
     {
         Console.Clear();
         character = CharacterHandler.GetActiveCharacter();
@@ -19,7 +19,7 @@ public class Menu_Game
         menu.MenuHandler(2); // Return to save menu
     }
 
-    public void CharacterDisplay(Menu menu)
+    public static void CharacterDisplay(Menu menu)
     {
         character = CharacterHandler.GetActiveCharacter();
         bool? success;

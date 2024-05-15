@@ -87,6 +87,20 @@ public class JSONFileData : IDataAccess
         File.WriteAllText(_usersFile, json);
     }
 
+    public bool CheckFileExists(int fileIndex)
+    {
+        string path = fileIndex == 0 ? _usersFile : _savesFile;
+
+        if (File.Exists(path))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void StoreUser(User user)
     {
         if (File.Exists(_usersFile))

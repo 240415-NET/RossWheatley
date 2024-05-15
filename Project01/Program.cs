@@ -9,7 +9,8 @@ public class Program
         // However, disabling because it causes user to press enter twice to input through the console
         // Console.TreatControlCAsInput = true;
 
-        SessionHandler.StartNewSession();
+        // SessionHandler.StartNewSession();
+        
 
         Menu menu = new();
         menu.MenuHandler();

@@ -4,12 +4,19 @@ namespace TBG.Logic;
 
 public static class SaveHandler
 {
-    static IDataAccess dataAccess = new JSONFileData();
+    
     static List<Save> userSaveList = new();
 
     public static List<string> GetUserSavesList()
     {
-        List<Save> saveList = dataAccess.GetSaveList();
+        List<Save> saveList;
+
+        if (SessionHandler.DataAccess.CheckFileExists(1))
+        {
+            saveList = SessionHandler.DataAccess.GetSaveList();
+        }
+        else { saveList = new(); }
+
 
         foreach (Save save in saveList)
         {
@@ -37,7 +44,7 @@ public static class SaveHandler
         try
         {
             SessionHandler.CurrentSession.ActiveSave = new Save(SessionHandler.CurrentSession.ActiveUser, new GameObject(true));
-            dataAccess.PersistSave(SessionHandler.CurrentSession.ActiveSave);
+            SessionHandler.DataAccess.PersistSave(SessionHandler.CurrentSession.ActiveSave);
             return true;
         }
         catch
@@ -65,7 +72,7 @@ public static class SaveHandler
         if (SessionHandler.CurrentSession.ActiveSave != null)
         {
             SessionHandler.CurrentSession.ActiveSave.SaveDate = DateTime.Now;
-            dataAccess.PersistSave(SessionHandler.CurrentSession.ActiveSave);
+            SessionHandler.DataAccess.PersistSave(SessionHandler.CurrentSession.ActiveSave);
         }
     }
 }

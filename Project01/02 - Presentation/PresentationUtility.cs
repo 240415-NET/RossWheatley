@@ -14,7 +14,7 @@ public static class PresentationUtility
             {"default","Something went wrong. Please try again."},
             {"duplicate","That username may already exist. Please try again."},
             {"enough", "You do not have enough points available for that."},
-            {"found","That user could not be found."},
+            {"notfound","That user could not be found."},
             {"invalid","Invalid input."},
             {"nosave","No save data found for active user."},
             {"allocated","Points successfully allocated."}

@@ -56,9 +56,7 @@ public class Menu
     void MenuSelector(int menuId, int selection)
     {
         // Menus abstracted out for code organization
-        Menu_User userMenu = new();
         Menu_Main mainMenu = new();
-        Menu_Game gameMenu = new();
 
         switch (menuId)
         {
@@ -84,10 +82,10 @@ public class Menu
                 switch (selection)
                 {
                     case 1:
-                        userMenu.ContinueSave(this);
+                        Menu_User.ContinueSave(this);
                         break;
                     case 2:
-                        userMenu.CreateNewGame(this);
+                        Menu_User.CreateNewGame(this);
                         break;
                     case 3: // Return to main
                         MenuHandler(); // Returns to main menu
@@ -109,10 +107,10 @@ public class Menu
                     case 4:
                         break;
                     case 5:
-                        gameMenu.CharacterDisplay(this);
+                        Menu_Game.CharacterDisplay(this);
                         break;
                     case 6:
-                        gameMenu.ChangeClass(this);
+                        Menu_Game.ChangeClass(this);
                         break;
                     case 7:
                         SaveHandler.AutoPersistActiveSave();
