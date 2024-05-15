@@ -12,7 +12,7 @@ public class Save
     public int Units { get; set; }
     public List<int> Tasks { get; set; } // board positions where tasks are populated
     public List<int> Encounters { get; set; } // board positions where encounters occur
-    public (int x, int y) GridConstraints { get; set; }
+    public COORD GridConstraints { get; set; }
 
     public Save() { }
     public Save(User user, GameObject player)
@@ -26,8 +26,9 @@ public class Save
         SetGridConstraints(Turns);
     }
 
-    (int x, int y) SetGridConstraints(int turns)
+    void SetGridConstraints(int turns)
     {
-        return ((int)Math.Ceiling((double)turns / 2), (int)Math.Ceiling((double)turns / 2));
+        int i = (int)Math.Ceiling((double)turns / 2);
+        GridConstraints = new COORD { X = i, Y = i };
     }
 }

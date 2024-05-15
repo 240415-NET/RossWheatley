@@ -11,7 +11,7 @@ public class GameObject
     public int[] Skills { get; set; }
     public int AttributePoints { get; set; }
     public int[] Attributes { get; set; }
-    public (int x, int y) Coordinates { get; set; }
+    public COORD Coordinates { get; set; }
 
     public int CharacterClass
     {
@@ -46,7 +46,7 @@ public class GameObject
             Attributes[1] = 1;
             Attributes[2] = 1;
             CharacterClass = 1;
-            Coordinates = (0, 0);
+            Coordinates = new COORD {X = 0, Y = 0};
 
         }
         else

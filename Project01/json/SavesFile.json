@@ -1,0 +1,37 @@
+[
+    {
+        "SaveId": "38ec5d74-e0ac-41e1-872b-ca494d74bed4",
+        "UserId": "4453e558-cd4f-41da-b493-a7ecb747d262",
+        "PlayerObject": {
+            "IsPlayer": true,
+            "Level": 1,
+            "Experience": 0,
+            "Item": null,
+            "SkillPoints": 2,
+            "Skills": [
+                1,
+                1
+            ],
+            "AttributePoints": 2,
+            "Attributes": [
+                1,
+                1,
+                1
+            ],
+            "Coordinates": {
+                "X": 0,
+                "Y": 0
+            },
+            "CharacterClass": 1
+        },
+        "SaveDate": "2024-05-15T16:39:48.7329762-04:00",
+        "Turns": 25,
+        "Units": 2,
+        "Tasks": null,
+        "Encounters": null,
+        "GridConstraints": {
+            "X": 13,
+            "Y": 13
+        }
+    }
+]

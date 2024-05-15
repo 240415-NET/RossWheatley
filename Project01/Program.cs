@@ -10,7 +10,6 @@ public class Program
         // Console.TreatControlCAsInput = true;
 
         // SessionHandler.StartNewSession();
-        
 
         Menu menu = new();
         menu.MenuHandler();

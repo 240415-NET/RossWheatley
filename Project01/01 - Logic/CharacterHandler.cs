@@ -9,12 +9,12 @@ public static class CharacterHandler
         {
             if (int.TryParse(s, out input)) // input is single integer
             {
-                if (input > 0 && input <= SessionHandler.CurrentSession.ActiveSave.PlayerObject.Skills.Count()) // input corresponds to a valid skill
+                if (input > 0 && input <= Session.ActiveSave.PlayerObject.Skills.Count()) // input corresponds to a valid skill
                 {
-                    if (SessionHandler.CurrentSession.ActiveSave.PlayerObject.SkillPoints > 0) // Skill points are available
+                    if (Session.ActiveSave.PlayerObject.SkillPoints > 0) // Skill points are available
                     {
-                        SessionHandler.CurrentSession.ActiveSave.PlayerObject.Skills[input - 1] += 1;
-                        SessionHandler.CurrentSession.ActiveSave.PlayerObject.SkillPoints -= 1;
+                        Session.ActiveSave.PlayerObject.Skills[input - 1] += 1;
+                        Session.ActiveSave.PlayerObject.SkillPoints -= 1;
                         return true;
                     }
                     else
@@ -31,12 +31,12 @@ public static class CharacterHandler
             {
                 // input is not a digit
                 input = Char.ToLower(s[0]) - 'a' + 1;
-                if (input > 0 && input <= SessionHandler.CurrentSession.ActiveSave.PlayerObject.Attributes.Count()) // input corresponds to a valid attribute
+                if (input > 0 && input <= Session.ActiveSave.PlayerObject.Attributes.Count()) // input corresponds to a valid attribute
                 {
-                    if (SessionHandler.CurrentSession.ActiveSave.PlayerObject.AttributePoints > 0) // Attribute points are available
+                    if (Session.ActiveSave.PlayerObject.AttributePoints > 0) // Attribute points are available
                     {
-                        SessionHandler.CurrentSession.ActiveSave.PlayerObject.Attributes[input - 1] += 1;
-                        SessionHandler.CurrentSession.ActiveSave.PlayerObject.AttributePoints -= 1;
+                        Session.ActiveSave.PlayerObject.Attributes[input - 1] += 1;
+                        Session.ActiveSave.PlayerObject.AttributePoints -= 1;
                         return true;
                     }
                     else
@@ -57,7 +57,7 @@ public static class CharacterHandler
     {
         try
         {
-            SessionHandler.CurrentSession.ActiveSave.PlayerObject.CharacterClass = Convert.ToInt32(s);
+            Session.ActiveSave.PlayerObject.CharacterClass = Convert.ToInt32(s);
         }
         catch
         {
@@ -67,6 +67,6 @@ public static class CharacterHandler
 
     public static GameObject GetActiveCharacter()
     {
-        return SessionHandler.CurrentSession.ActiveSave.PlayerObject;
+        return Session.ActiveSave.PlayerObject;
     }
 }
