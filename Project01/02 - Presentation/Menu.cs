@@ -7,6 +7,7 @@ public class Menu
     Session session = new();
     Menu_User userMenu = new();
     Menu_Main mainMenu = new();
+    Menu_Save saveMenu = new();
     IDataAccess dataAccess = new JSONFileData();
     string userInput = "";
 
@@ -105,10 +106,18 @@ public class Menu
                     case 3:
                         break;
                     case 4:
+                        break;
+                    case 5:
+                        saveMenu.CharacterDisplay(this, session);
+                        break;
+                    case 6:
+                        saveMenu.ChangeClass(this, session);
+                        break;
+                    case 7:
                         AutoPersistActiveSave();
                         MenuHandler(1); // Go back
                         break;
-                    case 5:
+                    case 8:
                         AutoPersistActiveSave();
                         MenuHandler(); // main menu
                         break;
@@ -141,6 +150,18 @@ public class Menu
     {
         AutoPersistActiveSave();
         Environment.Exit(0);
+    }
+
+
+    public string IntToLetters(int value)
+    {
+        string result = string.Empty;
+        while (--value >= 0)
+        {
+            result = (char)('A' + value % 26) + result;
+            value /= 26;
+        }
+        return result;
     }
 
     void PrintMenuArray(string[] options, bool clear = false)

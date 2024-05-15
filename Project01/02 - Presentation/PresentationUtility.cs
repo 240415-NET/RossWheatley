@@ -11,9 +11,11 @@ public static class PresentationUtility
             {"continue","Press any key to continue."},
             {"default","Something went wrong. Please try again."},
             {"duplicate","That username may already exist. Please try again."},
+            {"enough", "You do not have enough points available for that."},
             {"found","That user could not be found."},
             {"invalid","Invalid input."},
-            {"nosave","No save data found for active user."}
+            {"nosave","No save data found for active user."},
+            {"allocated","Points successfully allocated."}
         };
 
     public static void MenuHeader(Session session, int menuId)
@@ -49,7 +51,7 @@ public static class PresentationUtility
             case 1:
                 return new string[] { "Continue previous game", "Create new game", "Main menu" };
             case 2:
-                return new string[] { "End turn", "Update attributes", "Attempt task", "Go back", "Main menu" };
+                return new string[] { "Move","End turn","Search", "Attempt task", "Update character", "Change class", "Go back", "Main menu" };
             default:
                 return new string[] { "Create new user", "Login as existing user", "Exit" };
         }
@@ -66,6 +68,22 @@ public static class PresentationUtility
         {
             Console.Write(". ");
             Thread.Sleep(sleepTime);
+        }
+    }
+
+    public static void CharacterHeader(string s = "")
+    {
+        if (s == "")
+        {
+            Console.WriteLine("--------------------------------");
+        }
+        else if (s.ToLower() == "skills")
+        {
+            Console.WriteLine("-----------S K I L L S----------");
+        }
+        else if (s.ToLower() == "attributes")
+        {
+            Console.WriteLine("-------A T T R I B U T E S------");
         }
     }
 
