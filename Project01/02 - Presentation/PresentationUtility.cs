@@ -28,7 +28,7 @@ public static class PresentationUtility
         }
         else if (menuId == 1)
         {
-            Console.WriteLine($"Hello, {SessionHandler.CurrentSession.ActiveUser.UserName}!");
+            Console.WriteLine($"Hello, {Session.ActiveUser.UserName}!");
         }
     }
 
@@ -53,7 +53,9 @@ public static class PresentationUtility
             case 1:
                 return new string[] { "Continue previous game", "Create new game", "Main menu" };
             case 2:
-                return new string[] { "Move","End turn","Search", "Attempt task", "Update character", "Change class", "Go back", "Main menu" };
+                return new string[] { "Move", "End turn", "Search", "Attempt task", "Update character", "Change class", "Go back", "Main menu" };
+            case 3:
+                return new string[] { "Move Up", "Move Down", "Move Left", "Move Right" };
             default:
                 return new string[] { "Create new user", "Login as existing user", "Exit" };
         }

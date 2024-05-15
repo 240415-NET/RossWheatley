@@ -1,29 +1,24 @@
-using TBG.Data;
-
 namespace TBG.Logic;
 
 public static class LoginHandler
 {
-    static IDataAccess dataAccess = new JSONFileData();
-
     public static bool CheckUserExists(string input)
     {
-        if (dataAccess.CheckFileExists(0))
+        if (Session.DataAccess.CheckFileExists(0))
         {
-            List<User> existingUsers = dataAccess.GetUserList();
+            List<User> existingUsers = Session.DataAccess.GetUserList();
             return existingUsers.Any(user => user.UserName == input);
         }
         else
         {
             return false;
         }
-
     }
 
     public static bool CreateNewUser(string input)
     {
         User newUser = new(input);
-        dataAccess.StoreUser(newUser);
+        Session.DataAccess.StoreUser(newUser);
 
         if (Login(newUser))
         {
@@ -40,7 +35,7 @@ public static class LoginHandler
         if (CheckUserExists(input))
         {
             // user exists log them in
-            Login(dataAccess.GetUser(input));
+            Login(Session.DataAccess.GetUser(input));
             return true;
         }
         else
@@ -53,8 +48,7 @@ public static class LoginHandler
 
     public static bool Login(User user)
     {
-        Session session = SessionHandler.CurrentSession;
-        session.ActiveUser = user;
+        Session.ActiveUser = user;
         return true;
     }
 }

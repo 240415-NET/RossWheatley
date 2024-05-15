@@ -1,5 +1,3 @@
-using TBG.Data;
-
 namespace TBG.Logic;
 
 public static class SaveHandler
@@ -11,16 +9,16 @@ public static class SaveHandler
     {
         List<Save> saveList;
 
-        if (SessionHandler.DataAccess.CheckFileExists(1))
+        if (Session.DataAccess.CheckFileExists(1))
         {
-            saveList = SessionHandler.DataAccess.GetSaveList();
+            saveList = Session.DataAccess.GetSaveList();
         }
         else { saveList = new(); }
 
 
         foreach (Save save in saveList)
         {
-            if (save.UserId == SessionHandler.CurrentSession.ActiveUser.UserId)
+            if (save.UserId == Session.ActiveUser.UserId)
             {
                 userSaveList.Add(save);
             }
@@ -43,8 +41,8 @@ public static class SaveHandler
     {
         try
         {
-            SessionHandler.CurrentSession.ActiveSave = new Save(SessionHandler.CurrentSession.ActiveUser, new GameObject(true));
-            SessionHandler.DataAccess.PersistSave(SessionHandler.CurrentSession.ActiveSave);
+            Session.ActiveSave = new Save(Session.ActiveUser, new GameObject(true));
+            Session.DataAccess.PersistSave(Session.ActiveSave);
             return true;
         }
         catch
@@ -57,22 +55,21 @@ public static class SaveHandler
     {
         try
         {
-            SessionHandler.CurrentSession.ActiveSave = userSaveList[input - 1];
+            Session.ActiveSave = userSaveList[input - 1];
         }
         catch
         {
             return false;
         }
-
         return true;
     }
 
     public static void AutoPersistActiveSave()
     {
-        if (SessionHandler.CurrentSession.ActiveSave != null)
+        if (Session.ActiveSave != null)
         {
-            SessionHandler.CurrentSession.ActiveSave.SaveDate = DateTime.Now;
-            SessionHandler.DataAccess.PersistSave(SessionHandler.CurrentSession.ActiveSave);
+            Session.ActiveSave.SaveDate = DateTime.Now;
+            Session.DataAccess.PersistSave(Session.ActiveSave);
         }
     }
 }
