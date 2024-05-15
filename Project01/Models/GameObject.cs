@@ -11,6 +11,7 @@ public class GameObject
     public int[] Skills { get; set; }
     public int AttributePoints { get; set; }
     public int[] Attributes { get; set; }
+    public (int x, int y) Coordinates { get; set; }
 
     public int CharacterClass
     {
