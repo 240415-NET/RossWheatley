@@ -69,4 +69,9 @@ public static class CharacterHandler
     {
         return Session.ActiveSave.PlayerObject;
     }
+
+    public static void EquipItem(int index)
+    {
+        
+    }
 }

@@ -103,11 +103,12 @@ public class Menu
                     case 2:
                         break;
                     case 3:
+                        Menu_Game.Search(this);
                         break;
                     case 4:
                         break;
                     case 5:
-                        Menu_Game.CharacterDisplay(this);
+                        Menu_Game.UpdateCharacter(this);
                         break;
                     case 6:
                         Menu_Game.ChangeClass(this);

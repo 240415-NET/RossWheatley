@@ -11,7 +11,7 @@ public class GameObject
     public int[] Skills { get; set; }
     public int AttributePoints { get; set; }
     public int[] Attributes { get; set; }
-    public COORD Coordinates { get; set; }
+    public Coord Coordinates { get; set; }
 
     public int CharacterClass
     {
@@ -46,7 +46,7 @@ public class GameObject
             Attributes[1] = 1;
             Attributes[2] = 1;
             CharacterClass = 1;
-            Coordinates = new COORD {X = 0, Y = 0};
+            Coordinates = new Coord { X = 0, Y = 0 };
 
         }
         else
@@ -86,5 +86,17 @@ public class GameObject
             Attributes[random.Next(3)] += 1;
             attributePoints -= 1;
         } while (attributePoints > 0);
+    }
+
+    public bool GameObjectAtCoordinates(int x, int y)
+    {
+        if (this.Coordinates.X == x && this.Coordinates.Y == y)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

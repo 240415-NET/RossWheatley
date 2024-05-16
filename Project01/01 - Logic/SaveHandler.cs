@@ -2,7 +2,6 @@ namespace TBG.Logic;
 
 public static class SaveHandler
 {
-    
     static List<Save> userSaveList = new();
 
     public static List<string> GetUserSavesList()
@@ -45,8 +44,10 @@ public static class SaveHandler
             Session.DataAccess.PersistSave(Session.ActiveSave);
             return true;
         }
-        catch
+        catch (Exception e)
         {
+            Console.WriteLine(e.Message);
+            Console.WriteLine(e.StackTrace);
             return false;
         }
     }

@@ -2,24 +2,53 @@ using TBG.Logic;
 
 namespace TBG.Presentation;
 
+/*
+1 - Move
+2 - End Turn
+3 - Search
+4 - Attempt task
+5 - Update Character -- Done
+6 - Change class -- Done
+7 - Go back -- Done
+8 - Main menu -- Done
+*/
+
 public static class Menu_Game
 {
     static string userInput = String.Empty;
     static GameObject character = new();
 
-    #region -- Displays --
+    #region -- 1 --
+    #endregion
 
-    public static void ChangeClass(Menu menu)
+    #region -- 2 --
+    #endregion
+
+    #region -- 3 --
+    public static void Search(Menu menu)
     {
         Console.Clear();
-        character = CharacterHandler.GetActiveCharacter();
-        Console.WriteLine($"Character class: {character.CharacterClass}");
-        Console.WriteLine("Your character class is completely arbitrary. But feel free to enter a number between 1-3 to change your class anyway:");
-        CharacterHandler.UpdateClass(Console.ReadLine() ?? "");
-        menu.MenuHandler(2); // Return to save menu
+        PresentationUtility.ShowLoadingAnimation();
+        if (ItemHandler.Search())
+        {
+            Console.Clear();
+            // get and display item details
+            // prompt user to equip or go back
+        }
+        else
+        {
+            Console.Clear();
+            PresentationUtility.DisplayMessage("noitem");
+            menu.MenuHandler(2);
+        }
     }
+    #endregion
 
-    public static void CharacterDisplay(Menu menu)
+    #region -- 4 --
+    #endregion
+
+    #region -- 5 --
+    public static void UpdateCharacter(Menu menu)
     {
         character = CharacterHandler.GetActiveCharacter();
         bool? success;
@@ -64,6 +93,18 @@ public static class Menu_Game
             PresentationUtility.DisplayMessage("invalid");
         }
         menu.MenuHandler(2);
+    }
+    #endregion
+
+    #region -- 6 -- 
+    public static void ChangeClass(Menu menu)
+    {
+        Console.Clear();
+        character = CharacterHandler.GetActiveCharacter();
+        Console.WriteLine($"Character class: {character.CharacterClass}");
+        Console.WriteLine("Your character class is completely arbitrary. But feel free to enter a number between 1-3 to change your class anyway:");
+        CharacterHandler.UpdateClass(Console.ReadLine() ?? "");
+        menu.MenuHandler(2); // Return to save menu
     }
     #endregion
 }

@@ -14,6 +14,7 @@ public static class PresentationUtility
             {"default","Something went wrong. Please try again."},
             {"duplicate","That username may already exist. Please try again."},
             {"enough", "You do not have enough points available for that."},
+            {"noitem","No item found at your location."},
             {"notfound","That user could not be found."},
             {"invalid","Invalid input."},
             {"nosave","No save data found for active user."},
@@ -29,6 +30,12 @@ public static class PresentationUtility
         else if (menuId == 1)
         {
             Console.WriteLine($"Hello, {Session.ActiveUser.UserName}!");
+        }
+        else if (menuId == 2)
+        {
+            Console.Write($"Units: {Session.ActiveSave.Units}  ");
+            Console.Write($"Turns Remaining: {Session.ActiveSave.Turns}  ");
+            Console.Write($"Coordinates: ({Session.ActiveSave.PlayerObject.Coordinates.X},{Session.ActiveSave.PlayerObject.Coordinates.X}) \n");
         }
     }
 
