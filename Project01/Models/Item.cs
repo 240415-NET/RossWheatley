@@ -11,14 +11,4 @@ public class Item
     {
         ItemId = Guid.NewGuid();
     }
-
-    /*
-        public Item(int level)
-        {
-            Random random = new();
-            // GameObject obj = new();
-            // SkillIndex = random.Next(obj.Skills.Count());
-            // Modifier = level + random.Next(3);
-        }
-        */
 }

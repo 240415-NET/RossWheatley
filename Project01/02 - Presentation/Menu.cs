@@ -18,7 +18,10 @@ public class Menu
             do
             {
                 repeat = true;
-                Console.Clear();
+                if (menuId != 3)
+                {
+                    Console.Clear();
+                }
 
                 PresentationUtility.MenuHeader(menuId);
 
@@ -123,6 +126,19 @@ public class Menu
                         break;
                     default:
                         PresentationUtility.DisplayMessage("invalid", true);
+                        break;
+                }
+                break;
+            case 3:
+                switch (selection)
+                {
+                    case 1:
+                        CharacterHandler.EquipItem();
+                        MenuHandler(2);
+                        break;
+                    default:
+                        ItemHandler.DeleteItem();
+                        MenuHandler(2);
                         break;
                 }
                 break;

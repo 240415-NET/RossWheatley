@@ -29,11 +29,19 @@ public static class Menu_Game
     {
         Console.Clear();
         PresentationUtility.ShowLoadingAnimation();
-        if (ItemHandler.Search())
+
+        if (ItemHandler.ItemIdSearch() != null)
         {
             Console.Clear();
             // get and display item details
+            Item item = ItemHandler.GetSearchItem();
+            Console.WriteLine("Item found!");
+            Console.WriteLine($"Skill: {item.SkillIndex}");
+            Console.WriteLine($"Modifier: {item.Modifier}");
+
             // prompt user to equip or go back
+            menu.MenuHandler(3);
+
         }
         else
         {

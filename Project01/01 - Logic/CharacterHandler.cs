@@ -70,8 +70,9 @@ public static class CharacterHandler
         return Session.ActiveSave.PlayerObject;
     }
 
-    public static void EquipItem(int index)
+    public static void EquipItem()
     {
-        
+        Session.ActiveSave.PlayerObject.Item = ItemHandler.GetSearchItem(false);
+        ItemHandler.DeleteItem();
     }
 }

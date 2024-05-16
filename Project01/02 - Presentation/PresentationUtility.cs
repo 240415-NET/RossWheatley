@@ -62,6 +62,8 @@ public static class PresentationUtility
             case 2:
                 return new string[] { "Move", "End turn", "Search", "Attempt task", "Update character", "Change class", "Go back", "Main menu" };
             case 3:
+                return new string[] { "Equip", "Disregard" };
+            case 4:
                 return new string[] { "Move Up", "Move Down", "Move Left", "Move Right" };
             default:
                 return new string[] { "Create new user", "Login as existing user", "Exit" };
