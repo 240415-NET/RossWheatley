@@ -5,7 +5,7 @@ namespace TBG.Presentation;
 /*
 1 - Move
 2 - End Turn
-3 - Search
+3 - Search -- Done?
 4 - Attempt task
 5 - Update Character -- Done
 6 - Change class -- Done
@@ -53,6 +53,31 @@ public static class Menu_Game
     #endregion
 
     #region -- 4 --
+    public static void AttemptTask(Menu menu)
+    {
+        Console.Clear();
+        PresentationUtility.ShowLoadingAnimation();
+
+        if (ItemHandler.ItemIdSearch() != null)
+        {
+            Console.Clear();
+            // get and display item details
+            Item item = ItemHandler.GetSearchItem();
+            Console.WriteLine("Item found!");
+            Console.WriteLine($"Skill: {item.SkillIndex}");
+            Console.WriteLine($"Modifier: {item.Modifier}");
+
+            // prompt user to equip or go back
+            menu.MenuHandler(3);
+
+        }
+        else
+        {
+            Console.Clear();
+            PresentationUtility.DisplayMessage("noitem");
+            menu.MenuHandler(2);
+        }
+    }
     #endregion
 
     #region -- 5 --

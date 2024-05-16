@@ -3,10 +3,13 @@ namespace TBG;
 public class Task
 {
     // Attempting tasks costs units
-    // Successfully completing tasks return units
-    // Tasks will have a random chance to return units
+    // Attempting tasks gain XP
+    // Successfully completing tasks return bonus XP
     // AttributeA & AttributeB will factor into probability of "winning" a task
-    private int unitCost; // random # between 1 - 5
-    private int reward; // unitCost + random # between 1 - 5
-    private float probability; // random # between 1 - 100
+    public int unitCost { get; set; } // random # between 1 - 5
+    private int reward { get; set; } // unitCost * random # between 1 - 5
+    private float probability { get; set; } // random # between 1 - 100
+    public Coord Coordinates { get; set; }
+
+    public Task() { }
 }

@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+using TBG.Logic; 
 
 namespace TBG;
 
@@ -25,7 +25,8 @@ public class Save
         Turns = 25;
         Units = 2;
         SetGridConstraints(Turns);
-        GenerateItemsList();
+        Items = PopulateGameObjects.GenerateItemsList();
+        GenerateTasksList();
 
         void SetGridConstraints(int turns)
         {
@@ -33,47 +34,46 @@ public class Save
             GridConstraints = new Coord { X = i, Y = i };
         }
 
-        void GenerateItemsList()
+        void GenerateTasksList()
         {
-            int count = Turns / 6; // Generates items at an ~ratio of 4:25
-            List<Item> newItemsList = new();
+            int count = Turns / 2;
+            List<Task> newTasksList = new();
             bool repeat;
-            Item newItem;
+            Task newTask;
 
             for (int i = 0; i < count; i++) // loops until count integer is satisfied
             {
-                if (newItemsList.Count() > 0)
+                if (newTasksList.Count() > 0)
                 {
                     do // iterates until an item with unique X, Y coordinates can be added
                     {
                         repeat = true;
-                        newItem = RandomItem();
-                        foreach (Item item in newItemsList) // checks that an existing item in the list doesn't have the same coordinates
+                        newTask = RandomTask();
+                        foreach (Task task in newTasksList) // checks that an existing item in the list doesn't have the same coordinates
                         {
-                            bool notDuplicate = newItem.Coordinates.X != item.Coordinates.X && newItem.Coordinates.Y != item.Coordinates.Y;
-                            bool notAtZero = newItem.Coordinates.X != 0 && newItem.Coordinates.Y != 0;
-                            if (notDuplicate && notAtZero)
+                            bool notDuplicate = newTask.Coordinates.X != task.Coordinates.X && newTask.Coordinates.Y != task.Coordinates.Y;
+                            if (notDuplicate)
                             {
                                 repeat = false;
                             }
                         }
                     } while (repeat);
-                    newItemsList.Add(newItem); // Adds the item if it passes the unique check
+                    newTasksList.Add(newTask); // Adds the item if it passes the unique check
                 }
                 else
                 {
-                    newItem = RandomItem();
-                    newItemsList.Add(newItem);
+                    newTask = RandomTask();
+                    newTasksList.Add(newTask);
                 }
             }
-            Items = newItemsList;
+            Tasks = newTasksList;
 
-            Item RandomItem() // nested method to generate item with random X, Y coordinates
+            Task RandomTask() // nested method to generate item with random X, Y coordinates
             {
                 Random random = new();
-                Item randomItem = new();
-                randomItem.Coordinates = new Coord { X = random.Next(-GridConstraints.X, GridConstraints.X), Y = random.Next(-GridConstraints.Y, GridConstraints.Y) };
-                return randomItem;
+                Task randomTask = new();
+                randomTask.Coordinates = new Coord { X = random.Next(-GridConstraints.X, GridConstraints.X), Y = random.Next(-GridConstraints.Y, GridConstraints.Y) };
+                return randomTask;
             }
         }
     }
