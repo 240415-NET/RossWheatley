@@ -30,13 +30,13 @@ public class Menu_Main
             // Proceed to login if success
             Console.Clear();
             PresentationUtility.ShowLoadingAnimation();
-            menu.MenuHandler(1);
+            menu.Builder(1);
         }
         else
         {
             // Go back to main menu if something fails
             PresentationUtility.DisplayMessage();
-            menu.MenuHandler();
+            menu.Builder();
         }
     }
 
@@ -50,12 +50,12 @@ public class Menu_Main
         {
             Console.Clear();
             PresentationUtility.ShowLoadingAnimation();
-            menu.MenuHandler(1);
+            menu.Builder(1);
         }
         else
         {
             PresentationUtility.DisplayMessage("notfound", true);
-            menu.MenuHandler();
+            menu.Builder();
         }
     }
 }

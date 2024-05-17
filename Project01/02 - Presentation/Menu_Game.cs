@@ -4,9 +4,9 @@ namespace TBG.Presentation;
 
 /*
 1 - Move
-2 - End Turn
-3 - Search -- Done?
-4 - Attempt task
+2 - End Turn -- Done
+3 - Search -- Done
+4 - Attempt task -- Done
 5 - Update Character -- Done
 6 - Change class -- Done
 7 - Go back -- Done
@@ -19,9 +19,75 @@ public static class Menu_Game
     static GameObject character = new();
 
     #region -- 1 --
+
+    public static void Move(Menu menu, bool check = true, int input = 0)
+    {
+        Console.Clear();
+        if (check)
+        {
+            if (SaveHandler.PlayerHasUnits())
+            {
+                menu.Builder(5);
+            }
+            else
+            {
+                Console.Clear();
+                PresentationUtility.DisplayMessage("notenough");
+                menu.Builder(2);
+            }
+        }
+        else
+        {
+            // handle movement call
+            bool? playerMoved = GameHandler.Move(input);
+            if (playerMoved != null && (bool)playerMoved) // Handle encounter
+            {
+                PresentationUtility.ShowLoadingAnimation();
+                PresentationUtility.DisplayMessage("enemy");
+                Console.Clear();
+                PresentationUtility.ShowLoadingAnimation();
+                if (GameHandler.Encounter()) // true if player wins
+                {
+                }
+                else // false if player died
+                {
+
+                }
+            }
+            else if (playerMoved != null)// No encounter
+            {
+                PresentationUtility.ShowLoadingAnimation();
+                menu.Builder(2);
+            }
+            else
+            {
+                PresentationUtility.DisplayMessage("nomove");
+                menu.Builder(2);
+            }
+        }
+    }
+
     #endregion
 
     #region -- 2 --
+    public static void EndTurn(Menu menu)
+    {
+        Console.Clear();
+        PresentationUtility.ShowLoadingAnimation();
+        bool progressGame = GameHandler.EndTurn();
+        if (progressGame)
+        {
+            menu.Builder(2);
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("Game over.");
+            Console.WriteLine("Press any key to continue.");
+            Console.ReadLine();
+            menu.Builder(1);
+        }
+    }
     #endregion
 
     #region -- 3 --
@@ -40,43 +106,73 @@ public static class Menu_Game
             Console.WriteLine($"Modifier: {item.Modifier}");
 
             // prompt user to equip or go back
-            menu.MenuHandler(3);
+            menu.Builder(3);
 
         }
         else
         {
             Console.Clear();
             PresentationUtility.DisplayMessage("noitem");
-            menu.MenuHandler(2);
+            menu.Builder(2);
         }
     }
     #endregion
 
     #region -- 4 --
-    public static void AttemptTask(Menu menu)
+    public static void SearchForTask(Menu menu)
     {
         Console.Clear();
         PresentationUtility.ShowLoadingAnimation();
 
-        if (ItemHandler.ItemIdSearch() != null)
+        if (TaskHandler.TaskIdSearch() != null)
         {
             Console.Clear();
             // get and display item details
-            Item item = ItemHandler.GetSearchItem();
-            Console.WriteLine("Item found!");
-            Console.WriteLine($"Skill: {item.SkillIndex}");
-            Console.WriteLine($"Modifier: {item.Modifier}");
+            Task task = TaskHandler.GetTask();
+
+            Console.WriteLine("Task available!");
+            Console.WriteLine($"Unit cost: {task.UnitCost}");
 
             // prompt user to equip or go back
-            menu.MenuHandler(3);
-
+            menu.Builder(4); // 
         }
         else
         {
             Console.Clear();
-            PresentationUtility.DisplayMessage("noitem");
-            menu.MenuHandler(2);
+            PresentationUtility.DisplayMessage("notask");
+            menu.Builder(2);
         }
+    }
+
+    public static void AttemptTask(Menu menu)
+    {
+        Console.Clear();
+        PresentationUtility.ShowLoadingAnimation();
+        Task task = TaskHandler.GetTask();
+        bool? attempt = TaskHandler.AttemptTask();
+        int reward = attempt != null && (bool)attempt ? task.Reward : 5;
+
+        if (attempt != null && (bool)attempt)
+        {
+            //Success
+            Console.Clear();
+            PresentationUtility.DisplayMessage("success", false);
+        }
+        else if (attempt != null)
+        {
+            // Failure
+            Console.Clear();
+            PresentationUtility.DisplayMessage("fail", false);
+        }
+        else
+        {
+            Console.Clear();
+            PresentationUtility.DisplayMessage("notenough");
+            menu.Builder(2);
+        }
+        Console.WriteLine($"You've recieved {reward} XP as a reward");
+        PresentationUtility.DisplayMessage("waitonly");
+        menu.Builder(2);
     }
     #endregion
 
@@ -125,7 +221,7 @@ public static class Menu_Game
         {
             PresentationUtility.DisplayMessage("invalid");
         }
-        menu.MenuHandler(2);
+        menu.Builder(2);
     }
     #endregion
 
@@ -137,7 +233,7 @@ public static class Menu_Game
         Console.WriteLine($"Character class: {character.CharacterClass}");
         Console.WriteLine("Your character class is completely arbitrary. But feel free to enter a number between 1-3 to change your class anyway:");
         CharacterHandler.UpdateClass(Console.ReadLine() ?? "");
-        menu.MenuHandler(2); // Return to save menu
+        menu.Builder(2); // Return to save menu
     }
     #endregion
 }

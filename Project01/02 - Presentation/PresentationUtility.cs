@@ -10,15 +10,21 @@ public static class PresentationUtility
     static Dictionary<string, string> messages = new Dictionary<string, string>()
         {
             {"added","New user added."},
+            {"allocated","Points successfully allocated."},
             {"continue","Press any key to continue."},
             {"default","Something went wrong. Please try again."},
             {"duplicate","That username may already exist. Please try again."},
+            {"enemy", "You've ecountered an enemy!"},
             {"enough", "You do not have enough points available for that."},
-            {"noitem","No item found at your location."},
-            {"notfound","That user could not be found."},
+            {"fail", "You failed."},
             {"invalid","Invalid input."},
+            {"noitem","No item found at your location."},
+            {"nomove", "You cannot move any further in that direction."},
+            {"notask", "No task available at your location."},
+            {"notenough", "You don't have enough units to do that."},
+            {"notfound","That user could not be found."},
             {"nosave","No save data found for active user."},
-            {"allocated","Points successfully allocated."}
+            {"success", "You succeeded!"}
         };
 
     public static void MenuHeader(int menuId)
@@ -62,8 +68,10 @@ public static class PresentationUtility
             case 2:
                 return new string[] { "Move", "End turn", "Search", "Attempt task", "Update character", "Change class", "Go back", "Main menu" };
             case 3:
-                return new string[] { "Equip", "Disregard" };
+                return new string[] { "Equip", "Discard" };
             case 4:
+                return new string[] { "Attempt task", "Go back" };
+            case 5:
                 return new string[] { "Move Up", "Move Down", "Move Left", "Move Right" };
             default:
                 return new string[] { "Create new user", "Login as existing user", "Exit" };

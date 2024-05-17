@@ -12,12 +12,12 @@ public static class Menu_User
         {
             Console.Clear();
             PresentationUtility.ShowLoadingAnimation();
-            menu.MenuHandler(2);
+            menu.Builder(2);
         }
         else
         {
             PresentationUtility.DisplayMessage();
-            menu.MenuHandler(1);
+            menu.Builder(1);
         }
     }
 
@@ -75,19 +75,19 @@ public static class Menu_User
             if (SaveHandler.LoadSave(userSelection))
             {
                 PresentationUtility.ShowLoadingAnimation();
-                menu.MenuHandler(2);
+                menu.Builder(2);
             }
             else
             {
                 PresentationUtility.DisplayMessage();
-                menu.MenuHandler(1);
+                menu.Builder(1);
             }
         }
         else
         {
             Console.Clear();
             PresentationUtility.DisplayMessage("nosave");
-            menu.MenuHandler(1);
+            menu.Builder(1);
         }
     }
 }

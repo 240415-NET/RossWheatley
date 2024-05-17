@@ -12,6 +12,6 @@ public class Program
         // SessionHandler.StartNewSession();
 
         Menu menu = new();
-        menu.MenuHandler();
+        menu.Builder();
     }
 }
