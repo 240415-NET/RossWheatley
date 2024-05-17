@@ -53,7 +53,7 @@ public static class CharacterHandler
         return false;
     }
 
-    public static void CompletedTask(int reward)
+    public static void RewardPlayer(int reward)
     {
         int level = (Session.ActiveSave.PlayerObject.Experience + reward) / 10;
         if (level > 0)
@@ -64,7 +64,6 @@ public static class CharacterHandler
             Session.ActiveSave.PlayerObject.AttributePoints += level * 2;
         }
         Session.ActiveSave.PlayerObject.Experience += reward - (level * 10);
-        TaskHandler.DeleteTask();
     }
 
     public static void UpdateClass(string s)
@@ -88,5 +87,58 @@ public static class CharacterHandler
     {
         Session.ActiveSave.PlayerObject.Item = ItemHandler.GetSearchItem(false);
         ItemHandler.DeleteItem();
+    }
+
+    public static bool MoveCharacter(int input)
+    {
+        switch (input)
+        {
+            case 1: // Move Up
+                if (Session.ActiveSave.PlayerObject.Coordinates.Y < Session.ActiveSave.GridConstraints.Y)
+                {
+                    Session.ActiveSave.PlayerObject.Coordinates.Y += 1;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                break;
+            case 2: // Move Down
+                if (Session.ActiveSave.PlayerObject.Coordinates.Y > -Session.ActiveSave.GridConstraints.Y)
+                {
+                    Session.ActiveSave.PlayerObject.Coordinates.Y -= 1;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                break;
+            case 3: // Move Left
+                if (Session.ActiveSave.PlayerObject.Coordinates.X > -Session.ActiveSave.GridConstraints.X)
+                {
+                    Session.ActiveSave.PlayerObject.Coordinates.X -= 1;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                break;
+            case 4: // Move Right
+                if (Session.ActiveSave.PlayerObject.Coordinates.X < Session.ActiveSave.GridConstraints.X)
+                {
+                    Session.ActiveSave.PlayerObject.Coordinates.X += 1;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                break;
+            default:
+                return false;
+        }
     }
 }

@@ -43,19 +43,27 @@ public static class Menu_Game
             if (playerMoved != null && (bool)playerMoved) // Handle encounter
             {
                 PresentationUtility.ShowLoadingAnimation();
+                Console.Clear();
                 PresentationUtility.DisplayMessage("enemy");
                 Console.Clear();
                 PresentationUtility.ShowLoadingAnimation();
                 if (GameHandler.Encounter()) // true if player wins
                 {
+                    Console.Clear();
+                    PresentationUtility.DisplayMessage("success");
+                    menu.Builder(2);
                 }
                 else // false if player died
                 {
-
+                    Console.Clear();
+                    PresentationUtility.DisplayMessage("fail");
+                    Console.Write(" Game over.");
+                    menu.Builder(1);
                 }
             }
             else if (playerMoved != null)// No encounter
             {
+                Console.Clear();
                 PresentationUtility.ShowLoadingAnimation();
                 menu.Builder(2);
             }

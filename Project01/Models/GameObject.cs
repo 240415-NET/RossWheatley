@@ -51,7 +51,7 @@ public class GameObject
         }
         else
         {
-            RandomizePoints(Level);
+            RandomizePoints(level);
         }
 
     }

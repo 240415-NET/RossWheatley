@@ -11,7 +11,7 @@ public class JSONFileData : IDataAccess
 
     #region -- Saves -- 
 
-    void DeleteSave(Save save)
+    public void DeleteSave(Save save)
     {
         List<Save> saves = GetSaveList();
         saves.RemoveAll(s => s.SaveId == save.SaveId);

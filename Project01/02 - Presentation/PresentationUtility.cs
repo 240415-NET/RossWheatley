@@ -14,7 +14,7 @@ public static class PresentationUtility
             {"continue","Press any key to continue."},
             {"default","Something went wrong. Please try again."},
             {"duplicate","That username may already exist. Please try again."},
-            {"enemy", "You've ecountered an enemy!"},
+            {"enemy", "You've ecountered an enemy! Prepare for battle!"},
             {"enough", "You do not have enough points available for that."},
             {"fail", "You failed."},
             {"invalid","Invalid input."},
@@ -24,7 +24,7 @@ public static class PresentationUtility
             {"notenough", "You don't have enough units to do that."},
             {"notfound","That user could not be found."},
             {"nosave","No save data found for active user."},
-            {"success", "You succeeded!"}
+            {"success", "You succeeded!"},
         };
 
     public static void MenuHeader(int menuId)
@@ -41,7 +41,7 @@ public static class PresentationUtility
         {
             Console.Write($"Units: {Session.ActiveSave.Units}  ");
             Console.Write($"Turns Remaining: {Session.ActiveSave.Turns}  ");
-            Console.Write($"Coordinates: ({Session.ActiveSave.PlayerObject.Coordinates.X},{Session.ActiveSave.PlayerObject.Coordinates.X}) \n");
+            Console.Write($"Coordinates: ({Session.ActiveSave.PlayerObject.Coordinates.X},{Session.ActiveSave.PlayerObject.Coordinates.Y}) \n");
         }
     }
 

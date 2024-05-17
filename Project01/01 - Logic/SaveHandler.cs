@@ -1,3 +1,5 @@
+using TBG.Data;
+
 namespace TBG.Logic;
 
 public static class SaveHandler
@@ -82,5 +84,10 @@ public static class SaveHandler
     public static bool PlayerHasUnits()
     {
         return Session.ActiveSave.Units > 0;
+    }
+
+    public static void DeleteActiveSave()
+    {
+        Session.DataAccess.DeleteSave(Session.ActiveSave);
     }
 }

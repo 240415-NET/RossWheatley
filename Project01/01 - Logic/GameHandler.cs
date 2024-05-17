@@ -12,56 +12,16 @@ public static class GameHandler
         }
         else
         {
+            GameOver();
             return false;
         }
     }
 
     public static bool? Move(int input)
     {
-        switch (input)
+        if (!CharacterHandler.MoveCharacter(input)) // Player cannot move any further that direction
         {
-            case 1: // Move Up
-                if (Session.ActiveSave.PlayerObject.Coordinates.Y < Session.ActiveSave.GridConstraints.Y)
-                {
-                    Session.ActiveSave.PlayerObject.Coordinates.Y += 1;
-                }
-                else
-                {
-                    return null;
-                }
-                break;
-            case 2: // Move Down
-                if (Session.ActiveSave.PlayerObject.Coordinates.Y > -Session.ActiveSave.GridConstraints.Y)
-                {
-                    Session.ActiveSave.PlayerObject.Coordinates.Y -= 1;
-                }
-                else
-                {
-                    return null;
-                }
-                break;
-            case 3: // Move Left
-                if (Session.ActiveSave.PlayerObject.Coordinates.X > -Session.ActiveSave.GridConstraints.X)
-                {
-                    Session.ActiveSave.PlayerObject.Coordinates.X -= 1;
-                }
-                else
-                {
-                    return null;
-                }
-                break;
-            case 4: // Move Right
-                if (Session.ActiveSave.PlayerObject.Coordinates.X < -Session.ActiveSave.GridConstraints.X)
-                {
-                    Session.ActiveSave.PlayerObject.Coordinates.X += 1;
-                }
-                else
-                {
-                    return null;
-                }
-                break;
-            default:
-                return null;
+            return null;
         }
 
         Session.ActiveSave.Units -= 1;
@@ -86,10 +46,81 @@ public static class GameHandler
         }
     }
 
-    public static bool Encounter()
+    public static bool Encounter() // return true if player wins, false is player loses (also, handle gameover)
     {
-        // return true if player wins encounter
-        // return false if player dies (game over)
+        Random random = new();
+        GameObject player = Session.ActiveSave.PlayerObject;
+        GameObject enemy = new(false, Session.ActiveSave.PlayerObject.Level);
+
+        DeleteEncounter();
+
+        int attributeIndex = random.Next(1, 3);
+        int junkAttribute = attributeIndex == 1 ? 2 : 1;
+
+        if (player.Item != null)
+        {
+            // item bonus
+            player.Skills[player.Item.SkillIndex] += player.Item.Modifier;
+        }
+
+        int playerAtt = player.Skills[0] + player.Attributes[attributeIndex];
+        int playerHP = player.Skills[1] * player.Attributes[0];
+
+        int enemyAtt = enemy.Skills[0] + enemy.Attributes[attributeIndex];
+        int enemyHP = enemy.Skills[1] * enemy.Attributes[0];
+
+        int reward = (enemyHP + 5) * player.Attributes[junkAttribute];
+
+        do
+        {
+            if (enemyHP - playerAtt > 0)
+            {
+                enemyHP -= playerAtt; // decrement enemy life
+            }
+            else
+            {
+                CharacterHandler.RewardPlayer(reward);
+                return true; // player won
+            }
+
+            if (playerHP - enemyAtt > 0)
+            {
+                playerHP -= enemyAtt; // decrement player life
+            }
+            else
+            {
+                GameOver();
+                return false; // player has lost
+            }
+        } while (playerHP > 0 && enemyHP > 0);
+        GameOver();
         return false;
+    }
+
+    static void GameOver()
+    {
+        SaveHandler.DeleteActiveSave();
+    }
+
+    public static void DeleteEncounter()
+    {
+        DeleteEncounter((Guid)EncounterIdSearch());
+    }
+
+    public static void DeleteEncounter(Guid encounterId)
+    {
+        Session.ActiveSave.Encounters.RemoveAll(enc => enc.EncounterId == encounterId);
+    }
+
+    public static Guid? EncounterIdSearch()
+    {
+        foreach (Encounter enc in Session.ActiveSave.Encounters)
+        {
+            if (Session.ActiveSave.PlayerObject.GameObjectAtCoordinates(enc.Coordinates.X, enc.Coordinates.Y))
+            {
+                return enc.EncounterId;
+            }
+        }
+        return null;
     }
 }

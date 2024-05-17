@@ -6,6 +6,7 @@ public static class TaskHandler
     {
         Random random = new();
         Task task = GetTask();
+        DeleteTask();
         if (task.UnitCost <= Session.ActiveSave.Units)
         {
             Session.ActiveSave.Units -= task.UnitCost;
@@ -16,11 +17,11 @@ public static class TaskHandler
             {
                 if (random.Next(1, 100) <= task.Probability)
                 {
-                    CharacterHandler.CompletedTask(task.Reward);
+                    CharacterHandler.RewardPlayer(task.Reward);
                     return true;
                 }
             }
-            CharacterHandler.CompletedTask(5); // default reward
+            CharacterHandler.RewardPlayer(5); // default reward
             return false;
         }
         return null;
