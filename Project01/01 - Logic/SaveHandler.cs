@@ -4,15 +4,19 @@ public static class SaveHandler
 {
     static List<Save> userSaveList = new();
 
+    public static void EmptyUserSaveList()
+    {
+        userSaveList.Clear();
+    }
+
     public static List<string> GetUserSavesList()
     {
-        List<Save> saveList;
+        List<Save> saveList = new();
 
         if (Session.DataAccess.CheckFileExists(1))
         {
             saveList = Session.DataAccess.GetSaveList();
         }
-        else { saveList = new(); }
 
 
         foreach (Save save in saveList)
@@ -71,6 +75,12 @@ public static class SaveHandler
         {
             Session.ActiveSave.SaveDate = DateTime.Now;
             Session.DataAccess.PersistSave(Session.ActiveSave);
+            EmptyUserSaveList();
         }
+    }
+
+    public static bool PlayerHasUnits()
+    {
+        return Session.ActiveSave.Units > 0;
     }
 }

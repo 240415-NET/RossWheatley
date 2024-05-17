@@ -53,6 +53,20 @@ public static class CharacterHandler
         return false;
     }
 
+    public static void CompletedTask(int reward)
+    {
+        int level = (Session.ActiveSave.PlayerObject.Experience + reward) / 10;
+        if (level > 0)
+        {
+            // add level(s)
+            Session.ActiveSave.PlayerObject.Level += level;
+            Session.ActiveSave.PlayerObject.SkillPoints += level * 2;
+            Session.ActiveSave.PlayerObject.AttributePoints += level * 2;
+        }
+        Session.ActiveSave.PlayerObject.Experience += reward - (level * 10);
+        TaskHandler.DeleteTask();
+    }
+
     public static void UpdateClass(string s)
     {
         try

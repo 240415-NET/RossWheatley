@@ -7,9 +7,7 @@ public class Menu
     // String to hold user input
     string userInput = string.Empty;
 
-    #region -- Handler & Selector -- 
-
-    public void MenuHandler(int menuId = 0)
+    public void Builder(int menuId = 0)
     {
         bool repeat;
         int userSelection = 0;
@@ -18,7 +16,7 @@ public class Menu
             do
             {
                 repeat = true;
-                if (menuId != 3)
+                if (menuId != 3 && menuId != 4)
                 {
                     Console.Clear();
                 }
@@ -53,103 +51,8 @@ public class Menu
 
         } while (repeat);
 
-        MenuSelector(menuId, userSelection);
+        MenuSelector.Go(this, menuId, userSelection);
     }
-
-    void MenuSelector(int menuId, int selection)
-    {
-        // Menus abstracted out for code organization
-        Menu_Main mainMenu = new();
-
-        switch (menuId)
-        {
-            case 0: // Main Menu
-                switch (selection)
-                {
-                    case 1:
-                        mainMenu.CreateNewUser(this);
-                        break;
-                    case 2:
-                        mainMenu.FindExistingUser(this);
-                        break;
-                    case 3:
-                        ExitApplication();
-                        break;
-                    default:
-                        PresentationUtility.DisplayMessage("invalid", true);
-                        MenuHandler();
-                        break;
-                }
-                break;
-            case 1: // User Menu
-                switch (selection)
-                {
-                    case 1:
-                        Menu_User.ContinueSave(this);
-                        break;
-                    case 2:
-                        Menu_User.CreateNewGame(this);
-                        break;
-                    case 3: // Return to main
-                        MenuHandler(); // Returns to main menu
-                        break;
-                    default:
-                        PresentationUtility.DisplayMessage("invalid", true);
-                        break;
-                }
-                break;
-            case 2: // In-Game Menu
-                switch (selection)
-                {
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        Menu_Game.Search(this);
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        Menu_Game.UpdateCharacter(this);
-                        break;
-                    case 6:
-                        Menu_Game.ChangeClass(this);
-                        break;
-                    case 7:
-                        SaveHandler.AutoPersistActiveSave();
-                        MenuHandler(1); // Go back
-                        break;
-                    case 8:
-                        SaveHandler.AutoPersistActiveSave();
-                        MenuHandler(); // main menu
-                        break;
-                    default:
-                        PresentationUtility.DisplayMessage("invalid", true);
-                        break;
-                }
-                break;
-            case 3:
-                switch (selection)
-                {
-                    case 1:
-                        CharacterHandler.EquipItem();
-                        MenuHandler(2);
-                        break;
-                    default:
-                        ItemHandler.DeleteItem();
-                        MenuHandler(2);
-                        break;
-                }
-                break;
-            default:
-                PresentationUtility.DisplayMessage();
-                MenuHandler();
-                break;
-        }
-    }
-
-    #endregion
 
     #region -- Helpers --
 
