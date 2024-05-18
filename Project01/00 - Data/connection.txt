@@ -1,1 +1,0 @@
-Data Source=GEI57MMZH3;Initial Catalog=Project01;Integrated Security=False;User Id=sa;Password=Goverment0$;MultipleActiveResultSets=True;TrustServerCertificate=True;
