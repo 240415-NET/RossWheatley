@@ -188,6 +188,11 @@ public static class Menu_Game
     public static void UpdateCharacter(Menu menu)
     {
         character = CharacterHandler.GetActiveCharacter();
+        Item item;
+        if (character.Item != null)
+        {
+
+        }
         bool? success;
         Console.Clear();
         Console.WriteLine($"Character class: {character.CharacterClass}");
@@ -198,7 +203,12 @@ public static class Menu_Game
 
         for (int i = 0; i < character.Skills.Count(); i++)
         {
-            Console.WriteLine($"Skill {i + 1}: {character.Skills[i]}");
+            int skillValue = character.Skills[i];
+            if (character.Item != null && character.Item.SkillIndex == i)
+            {
+                skillValue += character.Item.Modifier;
+            }
+            Console.WriteLine($"Skill {i + 1}: {skillValue}");
         }
         PresentationUtility.CharacterHeader("attributes");
         Console.WriteLine($"Points available: {character.AttributePoints}");

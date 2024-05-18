@@ -1,0 +1,519 @@
+[
+    {
+        "SaveId": "87adfc36-5fc9-43a9-b4ea-87d7ff2a96dc",
+        "UserId": "720475bb-fe04-4dfb-9ca5-0aa8b7d6426b",
+        "PlayerObject": {
+            "IsPlayer": true,
+            "Level": 1,
+            "Experience": 0,
+            "Item": null,
+            "SkillPoints": 2,
+            "Skills": [
+                1,
+                1
+            ],
+            "AttributePoints": 2,
+            "Attributes": [
+                1,
+                1,
+                1
+            ],
+            "Coordinates": {
+                "X": 0,
+                "Y": 0
+            },
+            "CharacterClass": 1
+        },
+        "SaveDate": "2024-05-17T20:04:47.1475071-04:00",
+        "Turns": 25,
+        "Units": 2,
+        "GridConstraints": {
+            "X": 4,
+            "Y": 4
+        },
+        "Tasks": [
+            {
+                "TaskId": "d8b1ca5a-96a3-4e6e-9e01-95189a186843",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 3,
+                    "Y": 0
+                }
+            },
+            {
+                "TaskId": "facb1c3c-2572-4b03-82a7-25f16b6d274f",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": -3,
+                    "Y": 3
+                }
+            },
+            {
+                "TaskId": "2d62b740-73d7-4f7c-a0b9-d2985482c68a",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": -2,
+                    "Y": -3
+                }
+            },
+            {
+                "TaskId": "e4167a85-3f33-4706-aeca-54be3c48c0c4",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 0
+                }
+            },
+            {
+                "TaskId": "6ee1d247-ba8f-4e69-b00f-794a5022c28c",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 1,
+                    "Y": 1
+                }
+            },
+            {
+                "TaskId": "4aab0eda-13d5-4097-8f34-a20c748fab0b",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 2,
+                    "Y": -4
+                }
+            },
+            {
+                "TaskId": "1c423bce-8efe-47a5-b425-0a3ff08a2911",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 1,
+                    "Y": -3
+                }
+            },
+            {
+                "TaskId": "5e2d0380-f85a-4446-a7a1-2798797f9e67",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": -2,
+                    "Y": 1
+                }
+            },
+            {
+                "TaskId": "e8f7afdc-3127-4690-ad10-19d15e2d76b3",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 2
+                }
+            },
+            {
+                "TaskId": "3e5bbef6-a97c-44dd-883f-fca938e82d08",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 2
+                }
+            },
+            {
+                "TaskId": "b9cb185a-6605-496a-b69e-acfae41684e5",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 1
+                }
+            },
+            {
+                "TaskId": "41ebede3-71ee-4ed2-9b87-48b7546066d4",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": -4,
+                    "Y": -4
+                }
+            }
+        ],
+        "Encounters": [
+            {
+                "EncounterId": "72ab0a79-9806-4259-821e-3ca4a8731133",
+                "Coordinates": {
+                    "X": -1,
+                    "Y": 2
+                }
+            },
+            {
+                "EncounterId": "6eb31215-3a30-47c4-9c97-2fe17c091cbd",
+                "Coordinates": {
+                    "X": 3,
+                    "Y": -1
+                }
+            },
+            {
+                "EncounterId": "fd7f512a-3af9-4a0b-9a7d-2fd5afa463b6",
+                "Coordinates": {
+                    "X": 1,
+                    "Y": 2
+                }
+            },
+            {
+                "EncounterId": "8867b70b-3161-4545-b186-56aa7436cace",
+                "Coordinates": {
+                    "X": 0,
+                    "Y": -1
+                }
+            },
+            {
+                "EncounterId": "a5d9f8b9-9a67-4338-bac7-df23da17dd2c",
+                "Coordinates": {
+                    "X": 0,
+                    "Y": -3
+                }
+            }
+        ],
+        "Items": [
+            {
+                "ItemId": "8886b7b2-9729-450d-b846-51cf477159b2",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": -4,
+                    "Y": -1
+                }
+            },
+            {
+                "ItemId": "5ca666d4-20bb-485a-b758-b18454c800c8",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 2
+                }
+            },
+            {
+                "ItemId": "4a8ac10a-187d-49a3-8984-0c39cb90adb3",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": 2,
+                    "Y": -1
+                }
+            },
+            {
+                "ItemId": "565094b9-e802-470c-8231-167083e6ff52",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": 2,
+                    "Y": 0
+                }
+            }
+        ]
+    },
+    {
+        "SaveId": "e644a8c9-6836-4cf0-b3ae-3e130b4f7e3a",
+        "UserId": "720475bb-fe04-4dfb-9ca5-0aa8b7d6426b",
+        "PlayerObject": {
+            "IsPlayer": true,
+            "Level": 1,
+            "Experience": 0,
+            "Item": null,
+            "SkillPoints": 2,
+            "Skills": [
+                1,
+                1
+            ],
+            "AttributePoints": 2,
+            "Attributes": [
+                1,
+                1,
+                1
+            ],
+            "Coordinates": {
+                "X": 0,
+                "Y": 0
+            },
+            "CharacterClass": 1
+        },
+        "SaveDate": "2024-05-17T20:04:48.5308154-04:00",
+        "Turns": 25,
+        "Units": 2,
+        "GridConstraints": {
+            "X": 4,
+            "Y": 4
+        },
+        "Tasks": [
+            {
+                "TaskId": "36f9c887-b26f-4d8d-a343-587fb2d35fa1",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 3,
+                    "Y": -2
+                }
+            },
+            {
+                "TaskId": "b9c118a0-7b57-4c4b-b4eb-28149736e279",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 2,
+                    "Y": 1
+                }
+            },
+            {
+                "TaskId": "8c28887c-08bb-4b97-a94b-0878699e9bb0",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": -3,
+                    "Y": 3
+                }
+            },
+            {
+                "TaskId": "7d0d898f-05ac-45cf-91cb-49cd0c5b4a83",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": -4,
+                    "Y": -2
+                }
+            },
+            {
+                "TaskId": "377564bc-b638-442d-91b6-62c5b09be4e9",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": -4,
+                    "Y": -1
+                }
+            },
+            {
+                "TaskId": "0e3f9a12-ef04-4108-9a65-e7b371d8cd8f",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": -4,
+                    "Y": -3
+                }
+            },
+            {
+                "TaskId": "56e77b64-6b39-45a7-9644-c69fbb01e729",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 3,
+                    "Y": 2
+                }
+            },
+            {
+                "TaskId": "06358971-bb37-44e4-9087-012ec29de135",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 3,
+                    "Y": 3
+                }
+            },
+            {
+                "TaskId": "43699d75-fd20-46da-82e3-8ef7de0d2ba3",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 0,
+                    "Y": 1
+                }
+            },
+            {
+                "TaskId": "c150ca26-0eb4-4aa9-8564-1fd115567b2c",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": 2,
+                    "Y": -3
+                }
+            },
+            {
+                "TaskId": "a1b12c4e-4608-4b4c-b53d-25a004796a17",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": -3,
+                    "Y": 0
+                }
+            },
+            {
+                "TaskId": "0e14424c-539c-47a3-9e15-18427e8c4188",
+                "UnitCost": 0,
+                "Reward": 0,
+                "Probability": 0,
+                "Coordinates": {
+                    "X": -3,
+                    "Y": 0
+                }
+            }
+        ],
+        "Encounters": [
+            {
+                "EncounterId": "6ff545e0-3669-4f1d-a7bf-ef6fa93ff927",
+                "Coordinates": {
+                    "X": 1,
+                    "Y": -4
+                }
+            },
+            {
+                "EncounterId": "d9d2cc2c-3750-4f76-8e72-26dbd69b3019",
+                "Coordinates": {
+                    "X": 0,
+                    "Y": -3
+                }
+            },
+            {
+                "EncounterId": "273755fd-64a8-4269-bda7-f25f5fea6ed7",
+                "Coordinates": {
+                    "X": 3,
+                    "Y": -4
+                }
+            },
+            {
+                "EncounterId": "4012e223-21bd-4093-84bc-260c1200552f",
+                "Coordinates": {
+                    "X": 3,
+                    "Y": -1
+                }
+            },
+            {
+                "EncounterId": "591828c6-bf1b-4c24-8631-6c419bbf8817",
+                "Coordinates": {
+                    "X": -2,
+                    "Y": -2
+                }
+            },
+            {
+                "EncounterId": "48a7c18c-7ff9-420c-8a74-ae228222db8c",
+                "Coordinates": {
+                    "X": 1,
+                    "Y": 1
+                }
+            },
+            {
+                "EncounterId": "9ff130ff-77df-4067-91da-237d5ab67d83",
+                "Coordinates": {
+                    "X": -3,
+                    "Y": -4
+                }
+            },
+            {
+                "EncounterId": "6dc56d16-a333-43ca-86a5-f508559f2492",
+                "Coordinates": {
+                    "X": -1,
+                    "Y": 2
+                }
+            }
+        ],
+        "Items": [
+            {
+                "ItemId": "e92bc202-fa8b-486b-a822-2e7230309f20",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": 1,
+                    "Y": -3
+                }
+            },
+            {
+                "ItemId": "f3ceb1ea-3b91-4632-bcf7-5c330e8ca31d",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": -1,
+                    "Y": 0
+                }
+            },
+            {
+                "ItemId": "b61f96fa-791d-4397-a854-846a85001bd9",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": -1,
+                    "Y": 1
+                }
+            },
+            {
+                "ItemId": "7d59ba16-a59f-4e7c-8f6a-98bbcab12fbf",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": -2,
+                    "Y": 0
+                }
+            },
+            {
+                "ItemId": "a046d077-823c-4479-936f-0f43e9fabf27",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": -2,
+                    "Y": 1
+                }
+            },
+            {
+                "ItemId": "1f3da780-3614-4e0f-9127-660bed9627ca",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": -2,
+                    "Y": -2
+                }
+            },
+            {
+                "ItemId": "ac075482-32a1-4d3d-b41d-ca01f7b7a8c1",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": 1,
+                    "Y": 2
+                }
+            },
+            {
+                "ItemId": "dbeb293b-91ef-46a8-abf6-004faf7b0cab",
+                "SkillIndex": 0,
+                "Modifier": 0,
+                "Coordinates": {
+                    "X": 3,
+                    "Y": -2
+                }
+            }
+        ]
+    }
+]
