@@ -1,8 +1,8 @@
 namespace Project1.Data;
 
-public static class StorageHelper
+public static class Connection
 {
-    public static string GetSqlConnectionString()
+    public static string GetStringFromText()
     {
         string filePath = "C:/Tools/connection.txt";
         if (File.Exists(filePath))
