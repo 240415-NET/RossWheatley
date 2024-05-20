@@ -35,4 +35,18 @@ public class Save
             GridConstraints = new Coord { X = i, Y = i };
         }
     }
+
+    public Save(Guid saveId, Guid userId, GameObject playerObject, DateTime saveDate, int turns, int units, Coord gridConstraints, List<Task> tasks, List<Encounter> encounters, List<Item> items)
+    {
+        SaveId = saveId;
+        UserId = userId;
+        PlayerObject = playerObject;
+        SaveDate = saveDate;
+        Turns = turns;
+        Units = units;
+        GridConstraints = gridConstraints;
+        Tasks = tasks;
+        Encounters = encounters;
+        Items = items;
+    }
 }

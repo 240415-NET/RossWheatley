@@ -6,4 +6,10 @@ public class Coord
     public int Y { get; set; }
 
     public Coord() { }
+
+    public Coord(int x, int y)
+    {
+        X = x;
+        Y = y;
+    }
 }
