@@ -110,7 +110,7 @@ public static class Menu_Game
             // get and display item details
             Item item = ItemHandler.GetSearchItem();
             Console.WriteLine("Item found!");
-            Console.WriteLine($"Skill: {item.SkillIndex}");
+            Console.WriteLine($"Skill: {item.SkillIndex + 1}");
             Console.WriteLine($"Modifier: {item.Modifier}");
 
             // prompt user to equip or go back
@@ -198,6 +198,12 @@ public static class Menu_Game
         Console.WriteLine($"Character class: {character.CharacterClass}");
         Console.WriteLine($"Level: {character.Level}");
         Console.WriteLine($"Experience: {character.Experience}");
+        if (character.Item != null)
+        {
+            PresentationUtility.CharacterHeader("item");
+            Console.WriteLine($"Item Modifies: Skill {character.Item.SkillIndex + 1}");
+            Console.WriteLine($"Skill Modified: +{character.Item.Modifier}");
+        }
         PresentationUtility.CharacterHeader("skills");
         Console.WriteLine($"Points available: {character.SkillPoints}");
 
@@ -217,9 +223,9 @@ public static class Menu_Game
             Console.WriteLine($"Attribute {menu.IntToLetters(i + 1)}: {character.Attributes[i]}");
         }
         PresentationUtility.CharacterHeader();
-        Console.WriteLine("Enter a corresponding letter/number to add available points, or q to go back: ");
+        Console.WriteLine("Enter a corresponding letter/number to add available points, or x to go back: ");
         userInput = Console.ReadLine() ?? "";
-        if (userInput.Length == 1 && userInput.ToLower() != "q")
+        if (userInput.Length == 1 && userInput.ToLower() != "x")
         {
             success = CharacterHandler.UpdateCharacter(userInput);
             if (success != null && (bool)success)
@@ -235,11 +241,15 @@ public static class Menu_Game
                 PresentationUtility.DisplayMessage("invalid");
             }
         }
-        else if (userInput.ToLower() != "q")
+        else if (userInput.ToLower() != "x")
         {
             PresentationUtility.DisplayMessage("invalid");
         }
-        menu.Builder(2);
+        else if (userInput.ToLower() == "x")
+        {
+            menu.Builder(2);
+        }
+        MenuSelector.Go(menu, 2, 5);
     }
     #endregion
 

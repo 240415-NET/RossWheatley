@@ -5,7 +5,14 @@ namespace TBG.Data;
 
 public class SQLDataAccess : IDataAccess
 {
+    #region -- Class Variables --
     public static string connectionString = File.ReadAllText(@"C:\Tools\connection.txt");
+    List<GameObject> playersList = new();
+    List<Save> savesList = new();
+    List<Task> taskList = new();
+    List<Encounter> encounterList = new();
+    List<Item> itemsList = new();
+    List<Item> playerItemsList = new();
 
     readonly Dictionary<int, string> query = new Dictionary<int, string>() {
             {1, @"DELETE FROM dbo.Encounters WHERE SaveId = @SaveId"},
@@ -17,6 +24,8 @@ public class SQLDataAccess : IDataAccess
             {7, @"DELETE FROM dbo.Attributes WHERE SaveId = @SaveId"},
             {8, @"DELETE FROM dbo.Saves WHERE SaveId = @SaveId"}
         };
+
+    #endregion
 
     public void PersistSave(Save save)
     {
@@ -37,8 +46,8 @@ public class SQLDataAccess : IDataAccess
 
     void StorePlayer(Save save, SqlConnection connection)
     {
-        DeleteSaveExecuteNonQuery(save, connection, 4);
-        DeleteSaveExecuteNonQuery(save, connection, 5);
+        DeleteSaveExecuteNonQuery(save, connection, 4); // Clears PlayerObject table
+        DeleteSaveExecuteNonQuery(save, connection, 5); // Clears PlayerItem table
 
         string query = @"INSERT INTO dbo.PlayerObject
         (SaveId,IsPlayer,Level,Experience,SkillPoints,AttributePoints,CoordinateX,CoordinateY,CharacterClass)
@@ -46,7 +55,7 @@ public class SQLDataAccess : IDataAccess
         using SqlCommand cmd = new SqlCommand(query, connection);
         cmd.Parameters.AddWithValue("@SaveId", save.SaveId);
         cmd.Parameters.AddWithValue("@IsPlayer", save.PlayerObject.IsPlayer);
-        cmd.Parameters.AddWithValue("@Level", save.PlayerObject.Experience);
+        cmd.Parameters.AddWithValue("@Level", save.PlayerObject.Level);
         cmd.Parameters.AddWithValue("@Experience", save.PlayerObject.Experience);
         cmd.Parameters.AddWithValue("@SkillPoints", save.PlayerObject.SkillPoints);
         cmd.Parameters.AddWithValue("@AttributePoints", save.PlayerObject.AttributePoints);
@@ -56,6 +65,7 @@ public class SQLDataAccess : IDataAccess
         cmd.ExecuteNonQuery();
 
         StoreSkills(save, connection);
+        StoreAttributes(save, connection);
 
         if (save.PlayerObject.Item != null)
         {
@@ -67,7 +77,7 @@ public class SQLDataAccess : IDataAccess
     {
         DeleteSaveExecuteNonQuery(save, connection, 7);
 
-        for (int i = 0; i < save.PlayerObject.Skills.Count(); i++)
+        for (int i = 0; i < save.PlayerObject.Attributes.Count(); i++)
         {
             string query = @"INSERT INTO dbo.Attributes
         (SaveId, AttributeIndex, AttributeValue)
@@ -314,34 +324,204 @@ public class SQLDataAccess : IDataAccess
 
     #region -- Get Functions --
 
-    public List<Save> GetSaveList()
+    void PopulatePlayersList()
     {
-        Save save = new();
-        List<Save> saveList = new();
-        GameObject playerObject = new();
-        List<Item> items = new();
-        List<Task> tasks = new();
-        List<Encounter> encounters = new();
+        playersList.Clear();
+        PopulatePlayerItemsList();
 
         using SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
-
-        string query = @"SELECT SaveId, UserId, SaveDate, Turns, Units, GridConstraintX, GridConstraintY
-        FROM dbo.Saves";
+        string query = @"WITH player AS (
+SELECT
+p.[SaveId]
+      ,[Level]
+      ,[Experience]
+      ,[SkillPoints]
+      ,[AttributePoints]
+      ,[CoordinateX]
+      ,[CoordinateY]
+      ,[CharacterClass]
+	  ,ISNULL(skillsArray.SkillIndexes, '') AS SkillIndexes
+	  ,ISNULL(skillsArray.SkillValues, '') AS SkillValues
+	  ,ISNULL(attributesArray.AttributeIndexes, '') AS AttributeIndexes
+	  ,ISNULL(attributesArray.AttributeValues, '') AS AttributeValues
+	  FROM dbo.PlayerObject p
+	  LEFT JOIN (
+	  SELECT
+	  SaveId
+	  ,STRING_AGG(SkillIndex, ',') AS SkillIndexes
+	  ,STRING_AGG(SkillValue, ',') AS SkillValues
+	  FROM dbo.Skills
+	  GROUP BY SaveId
+	  ) skillsArray ON p.SaveId = skillsArray.SaveId
+	  LEFT JOIN (
+	  SELECT
+	  SaveId
+	  ,STRING_AGG(AttributeIndex, ',') AS AttributeIndexes
+	  ,STRING_AGG(AttributeValue, ',') AS AttributeValues
+	  FROM dbo.Attributes
+	  GROUP BY SaveId
+	  ) attributesArray ON p.SaveId = attributesArray.SaveId
+)
+SELECT *
+FROM player";
         using SqlCommand cmd = new SqlCommand(query, connection);
         using SqlDataReader reader = cmd.ExecuteReader();
-        // Save(Guid saveId, Guid userId, GameObject playerObject, DateTime saveDate, int turns, int units, Coord gridConstraints, List<Task> tasks, List<Encounter> encounters, List<Item> items)
         while (reader.Read())
         {
-            save = new Save(reader.GetGuid(0), reader.GetGuid(1), playerObject, (DateTime)reader.GetDateTime(2), reader.GetInt32(3), reader.GetInt32(4), new Coord(reader.GetInt32(5), reader.GetInt32(6)), tasks, encounters, items);
+            playersList.Add(new GameObject(
+            reader.GetGuid(0), // SaveId
+            true, // IsPlayer
+            reader.GetInt32(7), // charClass
+            reader.GetInt32(1), // level
+            reader.GetInt32(2), // experience
+            reader.GetInt32(3), // skillPoints
+            reader.GetInt32(4), // attributePoints
+            new Coord(reader.GetInt32(5), reader.GetInt32(6)), // coordinates
+            reader.GetString(9), // skillValues
+            reader.GetString(11), // attributeValues
+            playerItemsList.Find(item => item.SaveId == reader.GetGuid(0)) // Item
+            ));
         }
-        saveList.Add(save);
         connection.Close();
+    }
 
+    void PopulateTaskList()
+    {
+        taskList.Clear();
 
-        return saveList;
+        using SqlConnection connection = new SqlConnection(connectionString);
+        connection.Open();
+        string query = @"SELECT 
+        TaskId
+        ,SaveId
+        ,UnitCost
+        ,Reward
+        ,Probability
+        ,CoordinateX
+        ,CoordinateY
+        FROM dbo.Tasks";
+        using SqlCommand cmd = new SqlCommand(query, connection);
+        using SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            taskList.Add(new Task(reader.GetGuid(1), reader.GetGuid(0), reader.GetInt32(2), reader.GetInt32(3), reader.GetInt32(4), new Coord(reader.GetInt32(5), reader.GetInt32(6))));
+        }
+        connection.Close();
+    }
+
+    void PopulateEcounterList()
+    {
+        encounterList.Clear();
+
+        using SqlConnection connection = new SqlConnection(connectionString);
+        connection.Open();
+        string query = @"SELECT 
+        EncounterId
+        ,SaveId
+        ,CoordinateX
+        ,CoordinateY
+        FROM dbo.Encounters";
+        using SqlCommand cmd = new SqlCommand(query, connection);
+        using SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            encounterList.Add(new Encounter(reader.GetGuid(1), reader.GetGuid(0), new Coord(reader.GetInt32(2), reader.GetInt32(3))));
+        }
+        connection.Close();
+    }
+
+    void PopulateItemsList()
+    {
+        itemsList.Clear();
+
+        using SqlConnection connection = new SqlConnection(connectionString);
+        connection.Open();
+        string query = @"SELECT 
+        ItemId
+        ,SaveId
+        ,SkillIndex
+        ,Modifier
+        ,CoordinateX
+        ,CoordinateY
+        FROM dbo.Items";
+        using SqlCommand cmd = new SqlCommand(query, connection);
+        using SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            itemsList.Add(new Item(reader.GetGuid(1), reader.GetGuid(0), reader.GetInt32(2), reader.GetInt32(3), new Coord(reader.GetInt32(4), reader.GetInt32(5))));
+        }
+        connection.Close();
+    }
+
+    void PopulatePlayerItemsList()
+    {
+        playerItemsList.Clear();
+
+        using SqlConnection connection = new SqlConnection(connectionString);
+        connection.Open();
+        string query = @"SELECT 
+        SaveId
+        ,ItemId
+        ,SkillIndex
+        ,Modifier
+        FROM dbo.PlayerItem";
+        using SqlCommand cmd = new SqlCommand(query, connection);
+        using SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            playerItemsList.Add(new Item(reader.GetGuid(0), reader.GetGuid(1), reader.GetInt32(2), reader.GetInt32(3)));
+        }
+        connection.Close();
+    }
+
+    void PopulateSavesList()
+    {
+        savesList.Clear();
+
+        using SqlConnection connection = new SqlConnection(connectionString);
+        connection.Open();
+        string query = @"SELECT SaveId
+      ,UserId
+	  ,SaveDate
+      ,Turns
+      ,Units
+      ,GridConstraintX
+      ,GridConstraintY
+  FROM dbo.Saves";
+        using SqlCommand cmd = new SqlCommand(query, connection);
+        using SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            savesList.Add(new Save(reader.GetGuid(0),
+            reader.GetGuid(1),
+            playersList.Find(player => player.SaveId == reader.GetGuid(0)),
+            reader.GetDateTime(2),
+            reader.GetInt32(3),
+            reader.GetInt32(4),
+            new Coord(reader.GetInt32(5),
+            reader.GetInt32(6)),
+            taskList.Where(task => task.SaveId == reader.GetGuid(0)).ToList(),
+            encounterList.Where(encounter => encounter.SaveId == reader.GetGuid(0)).ToList(),
+            itemsList.Where(item => item.SaveId == reader.GetGuid(0)).ToList()
+            ));
+        }
+        connection.Close();
+    }
+
+    public List<Save> GetSaveList()
+    {
+        PopulatePlayersList();
+        PopulateTaskList();
+        PopulateEcounterList();
+        PopulateItemsList();
+        PopulateSavesList();
+        return savesList;
     }
 
     #endregion
-
 }
+
+
+
+

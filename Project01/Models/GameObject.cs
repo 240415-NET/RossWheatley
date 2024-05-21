@@ -2,6 +2,7 @@ namespace TBG;
 
 public class GameObject
 {
+    public Guid SaveId { get; set; }
     public bool IsPlayer { get; set; }
     private int characterClass;
     public int Level { get; set; }
@@ -27,7 +28,38 @@ public class GameObject
 
     public GameObject() { }
 
-    public GameObject(bool isPlayer, int level = 1/*, Guid? gameId = null*/)
+    public GameObject(Guid saveId, bool isPlayer, int charClass, int level, int experience, int skillPoints, int attributePoints, Coord coordinates,
+    string skillValues, string attributeValues, Item item)
+    {
+        SaveId = saveId;
+        IsPlayer = isPlayer;
+        CharacterClass = charClass;
+        Level = level;
+        Experience = experience;
+        SkillPoints = skillPoints;
+        AttributePoints = attributePoints;
+        Coordinates = coordinates;
+
+        Skills = new int[2];
+        Attributes = new int[3];
+
+        string[] skillVal = skillValues.Split(',');
+        string[] attVal = attributeValues.Split(',');
+
+        for (int i = 0; i < Skills.Count(); i++)
+        {
+            Skills[i] = int.Parse(skillVal[i]);
+        }
+
+        for (int i = 0; i < Attributes.Count(); i++)
+        {
+            Attributes[i] = int.Parse(attVal[i]);
+        }
+
+        this.Item = item;
+    }
+
+    public GameObject(bool isPlayer, int level = 2/*, Guid? gameId = null*/)
     {
         Skills = new int[2];
         Attributes = new int[3];

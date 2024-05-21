@@ -106,6 +106,10 @@ public static class PresentationUtility
         {
             Console.WriteLine("-------A T T R I B U T E S------");
         }
+        else if (s.ToLower() == "item")
+        {
+            Console.WriteLine("-------------I T E M------------");
+        }
     }
 
     public static void MenuArt()

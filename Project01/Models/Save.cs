@@ -36,7 +36,8 @@ public class Save
         }
     }
 
-    public Save(Guid saveId, Guid userId, GameObject playerObject, DateTime saveDate, int turns, int units, Coord gridConstraints, List<Task> tasks, List<Encounter> encounters, List<Item> items)
+    public Save(Guid saveId, Guid userId, GameObject playerObject, DateTime saveDate, int turns, int units, Coord gridConstraints,
+    List<Task> tasks, List<Encounter> encounters, List<Item> items)
     {
         SaveId = saveId;
         UserId = userId;
