@@ -212,9 +212,14 @@ public static class Menu_Game
             int skillValue = character.Skills[i];
             if (character.Item != null && character.Item.SkillIndex == i)
             {
-                skillValue += character.Item.Modifier;
+                Console.WriteLine($"Skill {i + 1}: {character.Skills[i]} (+{character.Item.Modifier})");
+                // skillValue += character.Item.Modifier;
             }
-            Console.WriteLine($"Skill {i + 1}: {skillValue}");
+            else
+            {
+                Console.WriteLine($"Skill {i + 1}: {character.Skills[i]}");
+            }
+            // Console.WriteLine($"Skill {i + 1}: {skillValue}");
         }
         PresentationUtility.CharacterHeader("attributes");
         Console.WriteLine($"Points available: {character.AttributePoints}");
