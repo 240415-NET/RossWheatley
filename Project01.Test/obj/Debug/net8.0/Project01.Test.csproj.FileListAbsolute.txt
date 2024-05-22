@@ -104,3 +104,9 @@ C:\Tools\repos\RossWheatley\Project01.Test\obj\Debug\net8.0\refint\Project01.Tes
 C:\Tools\repos\RossWheatley\Project01.Test\obj\Debug\net8.0\Project01.Test.pdb
 C:\Tools\repos\RossWheatley\Project01.Test\obj\Debug\net8.0\Project01.Test.genruntimeconfig.cache
 C:\Tools\repos\RossWheatley\Project01.Test\obj\Debug\net8.0\ref\Project01.Test.dll
+C:\Tools\repos\RossWheatley\Project01.Test\bin\Debug\net8.0\System.Data.SqlClient.dll
+C:\Tools\repos\RossWheatley\Project01.Test\bin\Debug\net8.0\runtimes\win-arm64\native\sni.dll
+C:\Tools\repos\RossWheatley\Project01.Test\bin\Debug\net8.0\runtimes\win-x64\native\sni.dll
+C:\Tools\repos\RossWheatley\Project01.Test\bin\Debug\net8.0\runtimes\win-x86\native\sni.dll
+C:\Tools\repos\RossWheatley\Project01.Test\bin\Debug\net8.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Tools\repos\RossWheatley\Project01.Test\bin\Debug\net8.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll

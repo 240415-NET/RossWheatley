@@ -1,4 +1,6 @@
- using TBG.Data;
+using TBG;
+using TBG.Logic;
+
 
 namespace Project01.Test;
 
@@ -8,18 +10,17 @@ public class Project01DataTests
     [InlineData("Ross")]
     public void UserExists_ExistingUser_ReturnTrue(string userName)
     {
-        JSONFileData data = new();
-        bool result = data.UserExists(userName);
-        // bool result = true;
+        User user = Session.DataAccess.GetUser(userName);
+        bool result = user != null;
         Assert.True(result);
     }
-    
+
     [Theory]
-    [InlineData("Ross")]
+    [InlineData("JohnJacobJingleheimerSchmidt")]
     public void UserExists_NonExistingUser_ReturnFalse(string userName)
     {
-        JSONFileData data = new();
-        bool result = data.UserExists(userName);
+        User user = Session.DataAccess.GetUser(userName);
+        bool result = user == null;
         Assert.False(result);
     }
 }

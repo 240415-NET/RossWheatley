@@ -22,9 +22,7 @@ public class Menu
                 }
 
                 PresentationUtility.MenuHeader(menuId);
-
                 PrintMenuArray(PresentationUtility.MenuArrays(menuId));
-
                 userInput = Console.ReadLine() ?? "";
 
                 try
@@ -55,13 +53,11 @@ public class Menu
     }
 
     #region -- Helpers --
-
     public void ExitApplication()
     {
         SaveHandler.AutoPersistActiveSave();
         Environment.Exit(0);
     }
-
     public string IntToLetters(int value)
     {
         string result = string.Empty;
@@ -72,7 +68,6 @@ public class Menu
         }
         return result;
     }
-
     void PrintMenuArray(string[] options, bool clear = false)
     {
         if (clear)
@@ -85,11 +80,9 @@ public class Menu
             Console.WriteLine($"{i + 1}. {options[i]}");
         }
     }
-
     bool ValidMenuSelection(int userSelection, string[] options)
     {
         return userSelection <= options.Length;
     }
-
     #endregion
 }

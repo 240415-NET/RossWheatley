@@ -17,6 +17,7 @@ public static class PresentationUtility
             {"enemy", "You've ecountered an enemy! Prepare for battle!"},
             {"enough", "You do not have enough points available for that."},
             {"fail", "You failed."},
+            {"gameover", "Game over."},
             {"invalid","Invalid input."},
             {"noitem","No item found at your location."},
             {"nomove", "You cannot move any further in that direction."},
@@ -41,7 +42,15 @@ public static class PresentationUtility
         {
             Console.Write($"Units: {Session.ActiveSave.Units}  ");
             Console.Write($"Turns Remaining: {Session.ActiveSave.Turns}  ");
-            Console.Write($"Coordinates: ({Session.ActiveSave.PlayerObject.Coordinates.X},{Session.ActiveSave.PlayerObject.Coordinates.Y}) \n");
+            Console.Write($"Coordinates: ({Session.ActiveSave.PlayerObject.Coordinates.X},{Session.ActiveSave.PlayerObject.Coordinates.Y})");
+            // Search/Task indicator
+            if (GameHandler.TaskOrItemAtCoordinates())
+            {
+                Console.Write("*");
+            }
+            Console.WriteLine(""); // Skip a line
+            GameHandler.SetDangerIndicators();
+            Console.WriteLine($"Danger: Direct ({GameHandler.DirectDanger}) Indirect ({GameHandler.IndirectDanger})");
         }
     }
 
