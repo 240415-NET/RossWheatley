@@ -50,21 +50,23 @@ public static class Menu_Game
                 if (GameHandler.Encounter()) // true if player wins
                 {
                     Console.Clear();
-                    PresentationUtility.DisplayMessage("success");
+                    Console.WriteLine($"Player defeated level {Session.LastEncounter.EnemyLevel} enemy while taking {Session.LastEncounter.PlayerDamage} total damage.");
+                    PresentationUtility.DisplayMessage("waitonly");
                     menu.Builder(2);
                 }
                 else // false if player died
                 {
                     Console.Clear();
-                    PresentationUtility.DisplayMessage("fail");
-                    Console.Write(" Game over.");
+                    Console.WriteLine($"Player was defeated by level {Session.LastEncounter.EnemyLevel} enemy.");
+                    PresentationUtility.DisplayMessage("gameover");
+                    // Trigger game over logic
                     menu.Builder(1);
                 }
             }
             else if (playerMoved != null)// No encounter
             {
                 Console.Clear();
-                PresentationUtility.ShowLoadingAnimation();
+                PresentationUtility.ShowLoadingAnimation(1, 100);
                 menu.Builder(2);
             }
             else
@@ -81,7 +83,7 @@ public static class Menu_Game
     public static void EndTurn(Menu menu)
     {
         Console.Clear();
-        PresentationUtility.ShowLoadingAnimation();
+        PresentationUtility.ShowLoadingAnimation(1, 100);
         bool progressGame = GameHandler.EndTurn();
         if (progressGame)
         {
@@ -102,7 +104,7 @@ public static class Menu_Game
     public static void Search(Menu menu)
     {
         Console.Clear();
-        PresentationUtility.ShowLoadingAnimation();
+        PresentationUtility.ShowLoadingAnimation(1, 100);
 
         if (ItemHandler.ItemIdSearch() != null)
         {

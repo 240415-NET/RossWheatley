@@ -29,7 +29,7 @@ public static class ItemHandler
     static Item RandomizeItem(Item item)
     {
         Random random = new();
-        item.SkillIndex = random.Next(Session.ActiveSave.PlayerObject.Skills.Count()) + 1;
+        item.SkillIndex = random.Next(Session.ActiveSave.PlayerObject.Skills.Count());
         item.Modifier = ((random.Next(3) + 1) * Session.ActiveSave.PlayerObject.Level);
         return item;
     }

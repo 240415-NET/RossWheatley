@@ -55,7 +55,7 @@ public static class TaskHandler
     {
         Random random = new();
         task.UnitCost = random.Next(1, 5);
-        task.Reward = task.UnitCost * random.Next(1, 5);
+        task.Reward = (task.UnitCost * random.Next(1, 5)) + 5;
         task.Probability = random.Next(0, 100);
         return task;
     }

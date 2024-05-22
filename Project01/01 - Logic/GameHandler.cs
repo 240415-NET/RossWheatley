@@ -2,6 +2,9 @@ namespace TBG.Logic;
 
 public static class GameHandler
 {
+    public static string DirectDanger { get; set; }
+    public static string IndirectDanger { get; set; }
+
     public static bool EndTurn()
     {
         if (Session.ActiveSave.Turns > 1)
@@ -33,6 +36,7 @@ public static class GameHandler
             if (Session.ActiveSave.PlayerObject.GameObjectAtCoordinates(enc.Coordinates.X, enc.Coordinates.Y))
             {
                 encounter = true;
+                Session.LastEncounter = enc;
             }
         }
 
@@ -51,6 +55,8 @@ public static class GameHandler
         Random random = new();
         GameObject player = Session.ActiveSave.PlayerObject;
         GameObject enemy = new(false, Session.ActiveSave.PlayerObject.Level);
+
+        Session.LastEncounter.EnemyLevel = enemy.Level; // Captures enemy level for presentation purposes
 
         DeleteEncounter();
 
@@ -86,6 +92,7 @@ public static class GameHandler
             if (playerHP - enemyAtt > 0)
             {
                 playerHP -= enemyAtt; // decrement player life
+                Session.LastEncounter.PlayerDamage += enemyAtt;
             }
             else
             {
@@ -97,7 +104,7 @@ public static class GameHandler
         return false;
     }
 
-    static void GameOver()
+    public static void GameOver()
     {
         SaveHandler.DeleteActiveSave();
     }
@@ -122,5 +129,153 @@ public static class GameHandler
             }
         }
         return null;
+    }
+
+    static void SetDirectDanger()
+    {
+        int sum = 0;
+        int max = 4;
+
+        double ratio;
+        GameObject player = Session.ActiveSave.PlayerObject;
+        int coordX = player.Coordinates.X;
+        int coordY = player.Coordinates.Y;
+        int contX = Session.ActiveSave.GridConstraints.X;
+        int contY = Session.ActiveSave.GridConstraints.Y;
+
+        // Check Up
+        if (coordY < contY && EcounterMatchAtCoordinates(coordX, coordY + 1))
+        {
+            sum += 1;
+        }
+        else if (coordY == contY)
+        {
+            max -= 1;
+        }
+        // Check down
+        if (coordY > -contY && EcounterMatchAtCoordinates(coordX, coordY - 1))
+        {
+            sum += 1;
+        }
+        else if (coordY == -contY)
+        {
+            max -= 1;
+        }
+        // Check left
+        if (coordX > -contX && EcounterMatchAtCoordinates(coordX - 1, coordY))
+        {
+            sum += 1;
+        }
+        else if (coordX == -contX)
+        {
+            max -= 1;
+        }
+        // Check right
+        if (coordX < contX && EcounterMatchAtCoordinates(coordX + 1, coordY))
+        {
+            sum += 1;
+        }
+        else if (coordX == contX)
+        {
+            max -= 1;
+        }
+
+        ratio = sum / max;
+
+        DirectDanger = sum == 0 ? "None" : ratio <= 0.25 ? "Low" : ratio <= 0.50 ? "Medium" : ratio <= 0.75 ? "Moderate" : "High";
+    }
+
+    static void SetIndirectDanger()
+    {
+        // Reset variables at each call
+        int sum = 0;
+        int max = 4;
+
+        double ratio;
+        GameObject player = Session.ActiveSave.PlayerObject;
+        int coordX = player.Coordinates.X;
+        int coordY = player.Coordinates.Y;
+        int contX = Session.ActiveSave.GridConstraints.X;
+        int contY = Session.ActiveSave.GridConstraints.Y;
+
+        // Check Up-Left
+        if (coordY < contY && coordX > -contX && EcounterMatchAtCoordinates(coordX - 1, coordY + 1))
+        {
+            sum += 1;
+        }
+        else if (coordY == contY && coordX == -contX)
+        {
+            max -= 1;
+        }
+        // Check Up-Right
+        if (coordY < contY && coordX < contX && EcounterMatchAtCoordinates(coordX + 1, coordY + 1))
+        {
+            sum += 1;
+        }
+        else if (coordY == contY && coordX == contX)
+        {
+            max -= 1;
+        }
+        // Check Down-Left
+        if (coordY > -contY && coordX > -contX && EcounterMatchAtCoordinates(coordX - 1, coordY - 1))
+        {
+            sum += 1;
+        }
+        else if (coordY == -contY && coordX == -contX)
+        {
+            max -= 1;
+        }
+        // Check Down-Right
+        if (coordY > -contY && coordX < contX && EcounterMatchAtCoordinates(coordX - 1, coordY + 1))
+        {
+            sum += 1;
+        }
+        else if (coordY == -contY && coordX == contX)
+        {
+            max -= 1;
+        }
+
+        ratio = sum / max;
+
+        IndirectDanger = sum == 0 ? "None" : ratio <= 0.25 ? "Low" : ratio <= 0.50 ? "Medium" : ratio <= 0.75 ? "Moderate" : "High";
+    }
+
+    public static void SetDangerIndicators()
+    {
+        SetDirectDanger();
+        SetIndirectDanger();
+    }
+
+    static bool EcounterMatchAtCoordinates(int x, int y)
+    {
+        foreach (Encounter encounter in Session.ActiveSave.Encounters)
+        {
+            if (encounter.Coordinates.X == x && encounter.Coordinates.Y == y)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static bool TaskOrItemAtCoordinates()
+    {
+        foreach (Task task in Session.ActiveSave.Tasks)
+        {
+            if (Session.ActiveSave.PlayerObject.GameObjectAtCoordinates(task.Coordinates.X, task.Coordinates.Y))
+            {
+                return true;
+            }
+        }
+
+        foreach (Item item in Session.ActiveSave.Items)
+        {
+            if (Session.ActiveSave.PlayerObject.GameObjectAtCoordinates(item.Coordinates.X, item.Coordinates.Y))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

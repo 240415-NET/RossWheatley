@@ -59,7 +59,7 @@ public class GameObject
         this.Item = item;
     }
 
-    public GameObject(bool isPlayer, int level = 2/*, Guid? gameId = null*/)
+    public GameObject(bool isPlayer, int level = 1)
     {
         Skills = new int[2];
         Attributes = new int[3];
@@ -91,6 +91,7 @@ public class GameObject
     private void RandomizePoints(int level)
     {
         Random random = new Random();
+        level += random.Next(1, 4); // adds as many as +3 levels to enemy
 
         // Convert level to integer and multiple by 2
         int skillPoints = level * 2;
