@@ -43,7 +43,7 @@ public class Menu
             }
             else
             {
-                PresentationUtility.DisplayMessage("invalid", true);
+                PresentationUtility.DisplayMessage("invalid");
                 repeat = true;
             }
 

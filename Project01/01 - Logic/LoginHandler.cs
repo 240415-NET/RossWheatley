@@ -15,10 +15,11 @@ public static class LoginHandler
         }
     }
 
-    public static bool CreateNewUser(string input)
+    public static bool CreateNewUser(string userName, string password)
     {
-        User newUser = new(input);
-        Session.DataAccess.StoreUser(newUser);
+        User newUser = new(userName);
+        // Authentication.HashPassword(password);
+        Session.DataAccess.StoreUser(newUser, Authentication.HashPassword(password));
 
         if (Login(newUser))
         {
@@ -48,7 +49,14 @@ public static class LoginHandler
 
     public static bool Login(User user)
     {
-        Session.ActiveUser = user;
-        return true;
+        if (Authentication.VerifyPassword(password))
+        {
+            Session.ActiveUser = user;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
