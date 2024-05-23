@@ -25,6 +25,7 @@ public static class PresentationUtility
             {"notenough", "You don't have enough units to do that."},
             {"notfound","That user could not be found."},
             {"nosave","No save data found for active user."},
+            {"password", "Password entered is incorrect."},
             {"success", "You succeeded!"},
         };
 

@@ -8,12 +8,12 @@ public static class Authentication
     static int SaltSize = 32;
     static int HashSize = 64;
     readonly static string secretKey = File.ReadAllText(@"C:\Tools\key.txt");
-    readonly static byte[] pepper = Encoding.UTF8.GetBytes(secretKey);
+    readonly static byte[] Pepper = Encoding.UTF8.GetBytes(secretKey);
 
     public static (byte[] Salt, byte[] Hash) HashPassword(string password)
     {
         byte[] salt = GenerateSalt();
-        byte[] hash = HashWithSaltAndPepper(password, salt, pepper);
+        byte[] hash = HashWithSaltAndPepper(password, salt, Pepper);
         return (salt, hash);
     }
     static byte[] GenerateSalt()
@@ -28,7 +28,7 @@ public static class Authentication
 
     private static byte[] HashWithSaltAndPepper(string password, byte[] salt, byte[] pepper)
     {
-        using (var sha512 = SHA512.Create())
+        using (var sha256 = SHA256.Create())
         {
             byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
             byte[] combined = new byte[passwordBytes.Length + salt.Length + pepper.Length];
@@ -37,13 +37,13 @@ public static class Authentication
             Buffer.BlockCopy(salt, 0, combined, passwordBytes.Length, salt.Length);
             Buffer.BlockCopy(pepper, 0, combined, passwordBytes.Length + salt.Length, pepper.Length);
 
-            return sha512.ComputeHash(combined);
+            return sha256.ComputeHash(combined);
         }
     }
 
-    public static bool VerifyPassword(string password)
+    public static bool VerifyPassword(byte[] salt, byte[] hash, string password)
     {
-        byte[] computedHash = HashWithSaltAndPepper(password, salt, pepper);
+        byte[] computedHash = HashWithSaltAndPepper(password, salt, Pepper);
         return CryptographicOperations.FixedTimeEquals(computedHash, hash);
     }
 }

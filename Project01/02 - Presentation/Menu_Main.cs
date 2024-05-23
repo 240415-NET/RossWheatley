@@ -57,24 +57,52 @@ public class Menu_Main
 
     public void FindExistingUser(Menu menu)
     {
+        bool repeat = true;
         Console.Clear();
         Console.WriteLine("Enter your username:");
-        string userInput = Console.ReadLine() ?? "";
+        string userName = Console.ReadLine() ?? "";
+        string password;
 
-        if (LoginHandler.FindExistingUser(userInput))
+        if (LoginHandler.CheckUserExists(userName))
         {
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Enter password:");
+                password = Console.ReadLine() ?? "";
+                repeat = PasswordInputInvalid(password);
+                if (!repeat) // if password input is valid
+                {
+                    if (LoginHandler.Login(userName, password))
+                    {
+                        repeat = false;
+                    }
+                    else
+                    {
+                        repeat = true;
+                        // need incorrect password message
+                        PresentationUtility.DisplayMessage("password");
+                    }
+                }
+                else // if password input is not valid
+                {
+                    PresentationUtility.DisplayMessage("invalid");
+                }
+            } while (repeat);
+
             Console.Clear();
             PresentationUtility.ShowLoadingAnimation();
+
             menu.Builder(1);
         }
         else
         {
-            PresentationUtility.DisplayMessage("notfound", true);
+            PresentationUtility.DisplayMessage("notfound");
             menu.Builder();
         }
     }
 
-    bool PasswordInputInvalid(string input)
+    bool PasswordInputInvalid(string input) // Just checks to make sure input is not blank
     {
         if (input == "")
         {

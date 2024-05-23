@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IWylX6Yl/tVytMm5/bfo8g5dIQ+tTSqqOjr+ExcyrBNijgEmTGVQ+sR8r0/98fMP7GId8CQ44TCYf6MfNsbUSw==",
+  "dgSpecHash": "c4BbTOyZQ0CGQXGqoxUM72S73MksxnBsTRp0ki3+00Nr+YLxF/NsSxEjy6fsE/bCqR4pGzqPFUBbUarl1BPEmg==",
   "success": true,
-  "projectFilePath": "C:\\Tools\\repos\\RossWheatley\\project01\\Project01.csproj",
+  "projectFilePath": "C:\\Tools\\repos\\RossWheatley\\Project01\\Project01.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\A170420\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\A170420\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

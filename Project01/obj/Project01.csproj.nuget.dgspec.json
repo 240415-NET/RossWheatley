@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Tools\\repos\\RossWheatley\\project01\\Project01.csproj": {}
+    "C:\\Tools\\repos\\RossWheatley\\Project01\\Project01.csproj": {}
   },
   "projects": {
-    "C:\\Tools\\repos\\RossWheatley\\project01\\Project01.csproj": {
+    "C:\\Tools\\repos\\RossWheatley\\Project01\\Project01.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Tools\\repos\\RossWheatley\\project01\\Project01.csproj",
+        "projectUniqueName": "C:\\Tools\\repos\\RossWheatley\\Project01\\Project01.csproj",
         "projectName": "Project01",
-        "projectPath": "C:\\Tools\\repos\\RossWheatley\\project01\\Project01.csproj",
+        "projectPath": "C:\\Tools\\repos\\RossWheatley\\Project01\\Project01.csproj",
         "packagesPath": "C:\\Users\\A170420\\.nuget\\packages\\",
-        "outputPath": "C:\\Tools\\repos\\RossWheatley\\project01\\obj\\",
+        "outputPath": "C:\\Tools\\repos\\RossWheatley\\Project01\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -18,38 +18,18 @@ public static class LoginHandler
     public static bool CreateNewUser(string userName, string password)
     {
         User newUser = new(userName);
-        // Authentication.HashPassword(password);
         Session.DataAccess.StoreUser(newUser, Authentication.HashPassword(password));
-
-        if (Login(newUser))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        Session.ActiveUser = newUser;
+        return true;
     }
 
-    public static bool FindExistingUser(string input)
+    public static bool Login(string username, string password)
     {
-        if (CheckUserExists(input))
-        {
-            // user exists log them in
-            Login(Session.DataAccess.GetUser(input));
-            return true;
-        }
-        else
-        {
-            // user not found
-            return false;
-        }
+        User user = Session.DataAccess.GetUser(username);
 
-    }
-
-    public static bool Login(User user)
-    {
-        if (Authentication.VerifyPassword(password))
+        byte[] salt = Session.DataAccess.GetAuthentication(username, "salt");
+        byte[] hash = Session.DataAccess.GetAuthentication(username, "hash");
+        if (Authentication.VerifyPassword(salt, hash, password))
         {
             Session.ActiveUser = user;
             return true;

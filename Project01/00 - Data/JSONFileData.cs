@@ -62,6 +62,11 @@ public class JSONFileData : IDataAccess
 
     #region -- User --
 
+    public byte[] GetAuthentication(string userName, string columnName)
+    {
+        return new byte[0];
+    }
+
     public User GetUser(string userName)
     {
         List<User> users = GetUserList();

@@ -233,6 +233,44 @@ public class SQLDataAccess : IDataAccess
 
     #region -- User Data --
     // dbo.Users
+    public byte[] GetAuthentication(string userName, string columnName)
+    {
+        User user = GetUser(userName);
+        (byte[] salt, byte[] hash) hashSet;
+        hashSet.salt = new byte[0];
+        hashSet.hash = new byte[0];
+        using SqlConnection connection = new SqlConnection(connectionString);
+        connection.Open();
+        string query = @"SELECT Salt, HashedPassword FROM dbo.Users WHERE UserName = @UserName;";
+        using SqlCommand cmd = new SqlCommand(query, connection);
+        cmd.Parameters.AddWithValue("@UserName", userName);
+        using SqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            hashSet.salt = ReadVarbinaryData(reader, "Salt");
+            hashSet.hash = ReadVarbinaryData(reader, "HashedPassword");
+        }
+        connection.Close();
+        if (columnName.ToLower() == "salt")
+        {
+            return hashSet.salt;
+        }
+        else if (columnName.ToLower() == "hash")
+        {
+            return hashSet.hash;
+        }
+        return new byte[0];
+    }
+
+    private static byte[] ReadVarbinaryData(SqlDataReader reader, string columnName)
+    {
+        int columnIndex = reader.GetOrdinal(columnName);
+        long dataLength = reader.GetBytes(columnIndex, 0, null, 0, 0);
+        byte[] buffer = new byte[dataLength];
+        reader.GetBytes(columnIndex, 0, buffer, 0, (int)dataLength);
+        return buffer;
+    }
+
     public User GetUser(string userName)
     {
         User user = new User();
