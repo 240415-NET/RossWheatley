@@ -5,7 +5,7 @@ public static class PopulateGameObjects
 {
     public static List<Item> GenerateItemsList(int turns, int conX, int conY)
     {
-        int count = turns / 3; // Generates items at an ~ratio of 4:25
+        int count = turns / 3;
         List<Item> newItemsList = new();
         bool repeat;
         Item newItem;

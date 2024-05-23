@@ -291,14 +291,16 @@ public class SQLDataAccess : IDataAccess
         return userList;
     }
 
-    public void StoreUser(User user)
+    public void StoreUser(User user, (byte[] Salt, byte[] Password) hashSet)
     {
         using SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
-        string query = @"INSERT INTO dbo.Users (UserId, UserName) VALUES (@UserId, @UserName);";
+        string query = @"INSERT INTO dbo.Users (UserId, UserName, Salt, HashedPassword) VALUES (@UserId, @UserName, @Salt, @HashedPassword);";
         using SqlCommand cmd = new SqlCommand(query, connection);
         cmd.Parameters.AddWithValue("@UserId", user.UserId);
         cmd.Parameters.AddWithValue("@UserName", user.UserName);
+        cmd.Parameters.AddWithValue("@Salt", hashSet.Salt);
+        cmd.Parameters.AddWithValue("@HashedPassword", hashSet.Password);
         cmd.ExecuteNonQuery();
         connection.Close();
     }

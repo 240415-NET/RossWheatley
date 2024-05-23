@@ -101,7 +101,7 @@ public class JSONFileData : IDataAccess
         }
     }
 
-    public void StoreUser(User user)
+    public void StoreUser(User user, (byte[] Salt, byte[] Password) hashSet)
     {
         if (File.Exists(_usersFile))
         {

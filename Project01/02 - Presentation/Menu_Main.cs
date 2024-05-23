@@ -7,7 +7,8 @@ public class Menu_Main
     public void CreateNewUser(Menu menu)
     {
         bool repeat = false;
-        string userInput;
+        string userInput = String.Empty;
+        string password = String.Empty;
         do
         {
             repeat = true;
@@ -24,7 +25,21 @@ public class Menu_Main
             }
         } while (repeat); // Will prompt for user input again if user name already exists
 
-        if (LoginHandler.CreateNewUser(userInput))
+        do
+        {
+            repeat = true;
+            Console.Clear();
+            Console.WriteLine("Enter a password: ");
+            password = Console.ReadLine() ?? "";
+            repeat = PasswordInputInvalid(password);
+            if (repeat)
+            {
+                PresentationUtility.DisplayMessage("invalid");
+            }
+        } while (repeat);
+
+
+        if (LoginHandler.CreateNewUser(userInput, password))
         {
             PresentationUtility.DisplayMessage("added");
             // Proceed to login if success
@@ -56,6 +71,18 @@ public class Menu_Main
         {
             PresentationUtility.DisplayMessage("notfound", true);
             menu.Builder();
+        }
+    }
+
+    bool PasswordInputInvalid(string input)
+    {
+        if (input == "")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
