@@ -1,6 +1,10 @@
-using Practice;
+using Microsoft.EntityFrameworkCore;
+using Practice.Services;
+using Practice.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 
@@ -10,6 +14,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IUserStorageEFRepo, UserStorageEFRepo>();
+builder.Services.AddScoped<IItemStorageEFRepo, ItemStorageEFRepo>();
+
+string connectionString = File.ReadAllText(@"C:\Tools\connection.txt");
+
+builder.Services.AddDbContext<PracticeContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
 
