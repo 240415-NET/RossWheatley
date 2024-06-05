@@ -29,4 +29,15 @@ public class ItemController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    public double GetNumber(string s)
+    {
+        double dees = 34;
+        return dees;
+    }
+
+    public int GetNumber(int d) {
+        int i = 1;
+        return i;
+    }
 }
