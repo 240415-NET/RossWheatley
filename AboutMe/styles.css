@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.aol-profile {
+    width: 600px;
+    border: 2px solid #000;
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.header {
+    background-color: #003366;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-pic img {
+    width: 150px;
+    height: 150px;
+    border: 2px solid #000;
+    margin-bottom: 20px;
+}
+
+.info {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.info p {
+    margin: 5px 0;
+}
+
+.description {
+    width: 100%;
+}
+
+.description p {
+    margin: 5px 0;
+}
