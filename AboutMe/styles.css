@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #fff;
+    background-color: #bfbfbf;
     color: #000;
     margin: 0;
     padding: 0;
@@ -11,10 +11,11 @@ body {
 }
 
 .aol-profile {
-    width: 600px;
+    width: 750px;
     border: 2px solid #000;
     padding: 20px;
     background-color: #f8f8f8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 1);
 }
 
 .header {
@@ -22,36 +23,71 @@ body {
     color: #fff;
     padding: 10px;
     text-align: center;
-    margin-bottom: 20px;
+}
+
+.inner-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.inner-header-h1 {
+    margin: 0 auto;
+}
+
+.inner-header img {
+    position: absolute;
+    right: 10px;
 }
 
 .content {
+    background-color: #f4f1ea;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.profile-pic img {
-    width: 150px;
-    height: 150px;
-    border: 2px solid #000;
-    margin-bottom: 20px;
+.header-pic {
+    width:25%;
+    height: auto;
+    margin: 10px;
+    filter: saturate(0%) brightness(1000%)
 }
 
 .info {
     width: 100%;
     text-align: left;
     margin-bottom: 20px;
+    padding: 5px;
+    padding-bottom: 45px;
+    background-color: white;
+    border: 2px solid #000;
 }
 
 .info p {
     margin: 5px 0;
 }
 
-.description {
-    width: 100%;
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
-.description p {
-    margin: 5px 0;
+.aol-button {
+    background-color: #003366;
+    color: white;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-left: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.aol-button:hover {
+    background-color: #002244;
 }
